@@ -21,7 +21,8 @@ void validate_parameters(nlohmann::json* request_p, nlohmann::json* errors_p,
   nlohmann::json valid_no_add_operations{"alter", "extract", "delete"};
   nlohmann::json valid_extract_admin_types{
       "user",     "group",    "group-connection",
-      "resource", "data-set", "racf-options"};
+      "resource", "data-set", "racf-options",
+      "keyring"};
   nlohmann::json valid_non_extract_admin_types{
       "user",     "group",        "group-connection", "resource",
       "data-set", "racf-options", "permission"};
@@ -43,7 +44,7 @@ void validate_parameters(nlohmann::json* request_p, nlohmann::json* errors_p,
   }
   checked_parameters.push_back("operation");
   if (*operation_p == "extract") {
-    // Call will go to IRRSEQ00 for EXTRACT operations
+    // Call will go to IRRSEQ00 or IRRSDL00 for EXTRACT operations
     validate_parameter(request_p, errors_p, "admin_type",
                        &valid_extract_admin_types, *admin_type_p, true);
     if (*admin_type_p != "racf-options") {

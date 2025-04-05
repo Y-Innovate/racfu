@@ -7,6 +7,7 @@ DIST			= ${PWD}/dist
 SRC				= ${PWD}/racfu
 IRRSMO00_SRC	= ${PWD}/racfu/irrsmo00
 IRRSEQ00_SRC	= ${PWD}/racfu/irrseq00
+IRRSDL00_SRC    = ${PWD}/racfu/irrsdl00
 KEY_MAP			= ${PWD}/racfu/key_map
 LOGGER			= ${PWD}/racfu/logger
 PYTHON			= ${PWD}/racfu/python
@@ -30,6 +31,7 @@ ifeq ($(UNAME), OS/390)
 				-I $(SRC) \
 				-I $(IRRSMO00_SRC) \
 				-I $(IRRSEQ00_SRC) \
+				-I $(IRRSDL00_SRC) \
 				-I $(KEY_MAP) \
 				-I $(VALIDATION) \
 				-I $(EXTERNALS) \
@@ -51,9 +53,11 @@ else
 
 	CFLAGS		= \
 				-std=c++11 -D__ptr32= \
+				-Wno-macro-redefined \
 				-I $(SRC) \
 				-I $(IRRSMO00_SRC) \
 				-I $(IRRSEQ00_SRC) \
+				-I $(IRRSDL00_SRC) \
 				-I $(KEY_MAP) \
 				-I $(VALIDATION) \
 				-I $(EXTERNALS) \
@@ -80,6 +84,7 @@ racfu: clean mkdirs
 		$(SRC)/*.cpp \
 		$(IRRSMO00_SRC)/*.cpp \
 		$(IRRSEQ00_SRC)/*.cpp \
+		$(IRRSDL00_SRC)/*.cpp \
 		$(KEY_MAP)/*.cpp \
 		$(LOGGER)/*.cpp \
 		$(VALIDATION)/*.cpp
@@ -94,6 +99,7 @@ test: clean mkdirs
 			$(SRC)/*.cpp \
 			$(IRRSMO00_SRC)/*.cpp \
 			$(IRRSEQ00_SRC)/*.cpp \
+			$(IRRSDL00_SRC)/*.cpp \
 			$(KEY_MAP)/*.cpp \
 			$(LOGGER)/*.cpp \
 			$(VALIDATION)/*.cpp \

@@ -1,5 +1,7 @@
 #include "logger.hpp"
 
+#include <string.h>
+
 #include <csignal>
 #include <iostream>
 #include <string>

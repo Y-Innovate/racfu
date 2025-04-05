@@ -8,7 +8,8 @@
 #include <string>
 
 #include "errors.hpp"
-#include "extract.hpp"
+#include "extract_seq.hpp"
+#include "extract_sdl.hpp"
 #include "irrsmo00.hpp"
 #include "logger.hpp"
 #include "messages.h"
@@ -125,14 +126,21 @@ void do_extract(const char *admin_type, const char *profile_name,
     function_code = DATA_SET_EXTRACT_FUNCTION_CODE;
   } else if (strcmp(admin_type, "racf-options") == 0) {
     function_code = SETROPTS_EXTRACT_FUNCTION_CODE;
+  } else if (strcmp(admin_type, "keyring") == 0) {
+    function_code = KEYRING_EXTRACT_FUNCTION_CODE;
   } else {
     return_codes_p->racfu_return_code = 8;
   }
 
   // Do extract if function code is good.
   if (return_codes_p->racfu_return_code == -1) {
-    raw_result = extract(profile_name, class_name, function_code, &raw_request,
-                         &raw_request_length, return_codes_p, logger_p);
+    if (function_code != KEYRING_EXTRACT_FUNCTION_CODE) {
+      raw_result = extract_seq(profile_name, class_name, function_code, &raw_request,
+                               &raw_request_length, return_codes_p, logger_p);
+    } else {
+      raw_result = extract_sdl(profile_name, function_code, &raw_request,
+                               &raw_request_length, return_codes_p, logger_p);
+    }
     if (raw_result == NULL) {
       return_codes_p->racfu_return_code = 4;
     } else {

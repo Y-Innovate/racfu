@@ -1,4 +1,4 @@
-#include "extract.hpp"
+#include "extract_seq.hpp"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,7 +15,7 @@
 #define _POSIX_C_SOURCE 200112L
 #include <arpa/inet.h>
 
-char *extract(
+char *extract_seq(
     const char *profile_name,  // Required for everything except setropts
     const char *class_name,    // Only required for general resource profile
     uint8_t function_code,     // Always required
