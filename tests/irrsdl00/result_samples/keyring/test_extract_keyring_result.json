@@ -1,0 +1,26 @@
+{
+  "profile": {
+    "keyrings": [
+      {
+        "ring_owner": "STCMAS",
+        "ring_name": "YINCICS",
+        "certificates": [
+          {
+            "label": "YIN CA 2024C",
+            "owner": "irrcerta"
+          },
+          {
+            "label": "MAINFRAMEHOME",
+            "owner": "irrsitec"
+          }
+        ]
+      }
+    ]
+  },
+  "return_codes": {
+    "racf_reason_code": 0,
+    "racf_return_code": 0,
+    "racfu_return_code": 0,
+    "saf_return_code": 0
+  }
+}

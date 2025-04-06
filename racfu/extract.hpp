@@ -292,9 +292,13 @@ typedef struct {
 /* Keyring Extract Result Structures (IRRSDL00 GetRingInfo)              */
 /*************************************************************************/
 typedef struct {
-  unsigned int result_buffer_length;
   unsigned int ring_count;
   char * ring_info;
+} keyring_extract_results_t;
+
+typedef struct {
+  unsigned int result_buffer_length;
+  keyring_extract_results_t * result_buffer;
 } keyring_extract_parms_results_t;
 
 #pragma pack(pop)  // Restore default structure packing options.

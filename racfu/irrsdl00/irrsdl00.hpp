@@ -26,7 +26,7 @@ typedef struct {                      /* FSPL for GetRingInfo                   
                                          the ring result area                      */ 
 } cddlx_get_ring_t;
 
-/* Prototype for IRRSMO64 */
+/* Prototype for IRRSDL64 */
 extern "C" {
 void IRRSDL64(int *,                // Num parms
               char *,               // Workarea

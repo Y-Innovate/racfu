@@ -16,13 +16,13 @@ int irrsdl64_racf_rc_mock     = 0;
 int irrsdl64_racf_reason_mock = 0;
 #endif
 
-extern void IRRSDL64(int* num_parms, char work_area[1024],
+extern void IRRSDL64(int* num_parms, char* work_area,
                      unsigned int alet_saf_rc, int* saf_rc,
                      unsigned int alet_racf_rc, int* racf_rc,
                      unsigned int alet_racf_rsn, int* racf_rsn,
                      char* function_code, unsigned int* attributes,
                      char* racf_user_id, char* ring_name,
-                     int* parmlist_version, char* parmlist) {
+                     int* parmlist_version, void* parmlist) {
   if (irrsdl64_result_mock != NULL && irrsdl64_result_size_mock > 0) {
     // Copy mock result to the result buffer.
     memcpy(parmlist, irrsdl64_result_mock, irrsdl64_result_size_mock);

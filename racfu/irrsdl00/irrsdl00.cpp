@@ -13,7 +13,7 @@ void call_irrsdl00(keyring_extract_arg_area_t *arg_area,
   char work_area[1024];
   unsigned int alet = 0;
 
-  IRRSDL64(&nNumParms, work_area,
+  IRRSDL64(&nNumParms, &work_area[0],
            alet, &return_codes_p->saf_return_code,
            alet, &return_codes_p->racf_return_code,
            alet, &return_codes_p->racf_reason_code,

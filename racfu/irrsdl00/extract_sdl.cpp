@@ -7,13 +7,6 @@
 
 #include "irrsdl00.hpp"
 
-// Use htonl() to convert 32-bit values from little endian to big endian.
-// use ntohl() to convert 16-bit values from big endian to little endian.
-// On z/OS these macros do nothing since "network order" and z/Architecture are
-// both big endian. This is only necessary for unit testing off platform.
-#define _POSIX_C_SOURCE 200112L
-#include <arpa/inet.h>
-
 char *extract_sdl(
     const char *profile_name,  // Required for everything
     const char *racf_user_id,  // Required for everything
@@ -24,7 +17,7 @@ char *extract_sdl(
     Logger *logger_p) {
   uint32_t rc;
 
-  void *result_buffer = NULL;
+  keyring_extract_parms_results_t *results = (keyring_extract_parms_results_t*) calloc(1, sizeof(keyring_extract_parms_results_t));
 
   /*************************************************************************/
   /* Invoke IRRSDL64 for GetRingInfo function                              */
@@ -44,31 +37,69 @@ char *extract_sdl(
 
     logger_p->debug(MSG_CALLING_SDL);
 
-    result_buffer = extract_keyring(arg_area_keyring, return_codes_p);
+    results->result_buffer = (keyring_extract_results_t*) extract_keyring(arg_area_keyring, return_codes_p);
 
     logger_p->debug(MSG_DONE);
 
     // Preserve Return & Reason Codes
-    return_codes_p->saf_return_code  = ntohl(arg_area_keyring->args.SAF_rc);
-    return_codes_p->racf_return_code = ntohl(arg_area_keyring->args.RACF_rc);
-    return_codes_p->racf_reason_code = ntohl(arg_area_keyring->args.RACF_rsn);
+    return_codes_p->saf_return_code  = arg_area_keyring->args.SAF_rc;
+    return_codes_p->racf_return_code = arg_area_keyring->args.RACF_rc;
+    return_codes_p->racf_reason_code = arg_area_keyring->args.RACF_rsn;
+
+    if (results->result_buffer != NULL) {
+      if (return_codes_p->saf_return_code <= 4 &&
+          return_codes_p->racf_return_code <= 4 &&
+          return_codes_p->racf_reason_code == 0) {
+        // Calculate buffer length
+        char *work = results->result_buffer->ring_info;
+        int nLen = 0;
+
+        for (int i = 0; i < results->result_buffer->ring_count; i++) {
+          // Count ring owner
+          nLen += 1 + *work;
+          work += 1 + *work;
+
+          // Count ring name
+          nLen += 1 + *work;
+          work += 1 + *work;
+
+          // Count cert count
+          nLen += 4;
+          unsigned int certCount = *((unsigned int*) work);
+          work += 4;
+
+          for (int j = 0; j < certCount; j++) {
+            // Count cert owner
+            nLen += 1 + *work;
+            work += 1 + *work;
+
+            // Count cert name
+            nLen += 1 + *work;
+            work += 1 + *work;
+          }
+        }
+
+        results->result_buffer_length = nLen;
+      }
+    }
+
     // Free Arg Area
     free(arg_area_keyring);
   }
 
   // Check Return Codes
-  if (return_codes_p->saf_return_code != 0 ||
-      return_codes_p->racf_return_code != 0 ||
+  if (return_codes_p->saf_return_code > 4 ||
+      return_codes_p->racf_return_code > 4 ||
       return_codes_p->racf_reason_code != 0 || rc != 0) {
     // Free Result Buffer & Return 'NULL' if not successful.
-    if (result_buffer != NULL) {
-      free(result_buffer);
-      result_buffer = NULL;
+    if (results != NULL) {
+      free(results);
+      results = NULL;
     }
   }
 
   // Return Result if Successful
-  return (char*) result_buffer;
+  return (char*) results;
 }
 
 keyring_extract_arg_area_t *build_keyring_extract_parms(

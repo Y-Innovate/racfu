@@ -187,12 +187,12 @@ void do_extract(const char *admin_type, const char *profile_name,
                       logger_p->cast_hex_string(raw_result, raw_result_length));
       profile_json = post_process_generic(generic_result_buffer, admin_type);
     } else {
-      keyring_extract_parms_results_t *keyring_result_buffer =
+      keyring_extract_parms_results_t *keyring_results =
           reinterpret_cast<keyring_extract_parms_results_t *>(raw_result);
-      raw_result_length = ntohl(keyring_result_buffer->result_buffer_length);
+      raw_result_length = ntohl(keyring_results->result_buffer_length);
       logger_p->debug(MSG_RESULT_SDL_KEYRING,
-                      logger_p->cast_hex_string(keyring_result_buffer->ring_info, raw_result_length));
-      profile_json = post_process_keyring(keyring_result_buffer);
+                      logger_p->cast_hex_string((char*) keyring_results->result_buffer, raw_result_length));
+      profile_json = post_process_keyring(keyring_results);
     }
     // Post Process Setropts Result
   } else {
