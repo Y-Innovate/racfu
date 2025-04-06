@@ -15,12 +15,14 @@
 #include "messages.h"
 #include "parameter_validation.hpp"
 #include "post_process.hpp"
+#include "post_process_keyring.hpp"
 #include "xml_generator.hpp"
 #include "xml_parser.hpp"
 
 void do_extract(const char *admin_type, const char *profile_name,
-                const char *class_name, racfu_result_t *result,
-                racfu_return_codes_t *return_codes_p, Logger *logger_p);
+                const char *auth_id, const char *class_name,
+                racfu_result_t *result, racfu_return_codes_t *return_codes_p,
+                Logger *logger_p);
 
 void do_add_alter_delete(const char *admin_type, const char *profile_name,
                          const char *class_name, const char *operation,
@@ -41,9 +43,10 @@ void racfu(racfu_result_t *result, const char *request_json, bool debug) {
   Logger logger = Logger(debug);
   nlohmann::json request, errors;
   std::string operation = "", admin_type = "", profile_name = "",
-              class_name            = "";
+              auth_id = "", class_name = "";
   racfu_return_codes_t return_codes = {-1, -1, -1, -1};
   const char *profile_name_ptr      = NULL;
+  const char *auth_id_ptr           = NULL;
   const char *class_name_ptr        = NULL;
   const char *surrogate_userid      = NULL;
   try {
@@ -60,9 +63,12 @@ void racfu(racfu_result_t *result, const char *request_json, bool debug) {
   }
   logger.debug(MSG_VALIDATING_PARAMETERS);
   validate_parameters(&request, &errors, &operation, &admin_type, &profile_name,
-                      &class_name);
+                      &auth_id, &class_name);
   if (!profile_name.empty()) {
     profile_name_ptr = profile_name.c_str();
+  }
+  if (!auth_id.empty()) {
+    auth_id_ptr = auth_id.c_str();
   }
   if (!class_name.empty()) {
     class_name_ptr = class_name.c_str();
@@ -80,14 +86,17 @@ void racfu(racfu_result_t *result, const char *request_json, bool debug) {
   if (request.contains("profile_name")) {
     profile_name = request["profile_name"].get<std::string>().c_str();
   }
+  if (request.contains("auth_id")) {
+    auth_id = request["auth_id"].get<std::string>().c_str();
+  }
   if (request.contains("class_name")) {
     class_name = request["class_name"].get<std::string>().c_str();
   }
   // Extract
   if (operation == "extract") {
     logger.debug(MSG_SEQ_PATH);
-    do_extract(admin_type.c_str(), profile_name_ptr, class_name_ptr, result,
-               &return_codes, &logger);
+    do_extract(admin_type.c_str(), profile_name_ptr, auth_id_ptr, class_name_ptr,
+               result, &return_codes, &logger);
     // Add/Alter/Delete
   } else {
     if (request.contains("run_as_userid")) {
@@ -105,8 +114,9 @@ void racfu(racfu_result_t *result, const char *request_json, bool debug) {
 }
 
 void do_extract(const char *admin_type, const char *profile_name,
-                const char *class_name, racfu_result_t *racfu_result,
-                racfu_return_codes_t *return_codes_p, Logger *logger_p) {
+                const char *auth_id, const char *class_name,
+                racfu_result_t *racfu_result, racfu_return_codes_t *return_codes_p,
+                Logger *logger_p) {
   char *raw_result  = NULL;
   char *raw_request = NULL;
   int raw_result_length, raw_request_length;
@@ -138,7 +148,7 @@ void do_extract(const char *admin_type, const char *profile_name,
       raw_result = extract_seq(profile_name, class_name, function_code, &raw_request,
                                &raw_request_length, return_codes_p, logger_p);
     } else {
-      raw_result = extract_sdl(profile_name, function_code, &raw_request,
+      raw_result = extract_sdl(profile_name, auth_id, function_code, &raw_request,
                                &raw_request_length, return_codes_p, logger_p);
     }
     if (raw_result == NULL) {
@@ -169,12 +179,21 @@ void do_extract(const char *admin_type, const char *profile_name,
 
   // Post Process Generic Result
   if (strcmp(admin_type, "racf-options") != 0) {
-    generic_extract_parms_results_t *generic_result_buffer =
-        reinterpret_cast<generic_extract_parms_results_t *>(raw_result);
-    raw_result_length = ntohl(generic_result_buffer->result_buffer_length);
-    logger_p->debug(MSG_RESULT_SEQ_GENERIC,
-                    logger_p->cast_hex_string(raw_result, raw_result_length));
-    profile_json = post_process_generic(generic_result_buffer, admin_type);
+    if (strcmp(admin_type, "keyring") != 0) {
+      generic_extract_parms_results_t *generic_result_buffer =
+          reinterpret_cast<generic_extract_parms_results_t *>(raw_result);
+      raw_result_length = ntohl(generic_result_buffer->result_buffer_length);
+      logger_p->debug(MSG_RESULT_SEQ_GENERIC,
+                      logger_p->cast_hex_string(raw_result, raw_result_length));
+      profile_json = post_process_generic(generic_result_buffer, admin_type);
+    } else {
+      keyring_extract_parms_results_t *keyring_result_buffer =
+          reinterpret_cast<keyring_extract_parms_results_t *>(raw_result);
+      raw_result_length = ntohl(keyring_result_buffer->result_buffer_length);
+      logger_p->debug(MSG_RESULT_SDL_KEYRING,
+                      logger_p->cast_hex_string(keyring_result_buffer->ring_info, raw_result_length));
+      profile_json = post_process_keyring(keyring_result_buffer);
+    }
     // Post Process Setropts Result
   } else {
     setropts_extract_results_t *setropts_result_buffer =

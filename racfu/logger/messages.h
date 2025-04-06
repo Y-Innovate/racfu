@@ -27,4 +27,9 @@
 #define MSG_RESULT_SMO_ASCII "Decoded result XML:"
 #define MSG_SMO_POST_PROCESS "Post-processing decoded result ..."
 
+// IRRSDL00 Logging Messages
+#define MSG_CALLING_SDL "Calling IRRSDL00 ..."
+#define MSG_REQUEST_SDL_KEYRING "Keyring extract request buffer:"
+#define MSG_RESULT_SDL_KEYRING "Raw profile extract result:"
+
 #endif

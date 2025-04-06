@@ -5,8 +5,6 @@
 
 #include <cstring>
 
-#include "logger.hpp"
-#include "messages.h"
 #include "irrsdl00.hpp"
 
 // Use htonl() to convert 32-bit values from little endian to big endian.
@@ -18,25 +16,91 @@
 
 char *extract_sdl(
     const char *profile_name,  // Required for everything
+    const char *racf_user_id,  // Required for everything
     uint8_t function_code,     // Always required
     char **raw_request,        // Always required
     int *raw_request_length,   // Always required
-    racfu_return_codes_t *return_codes,  // Always required,
+    racfu_return_codes_t *return_codes_p,  // Always required,
     Logger *logger_p) {
   uint32_t rc;
 
-  char *result_buffer;
+  void *result_buffer = NULL;
 
+  /*************************************************************************/
+  /* Invoke IRRSDL64 for GetRingInfo function                              */
+  /*************************************************************************/
+  if (function_code == KEYRING_EXTRACT_FUNCTION_CODE) {
+    keyring_extract_arg_area_t *arg_area_keyring;
+    arg_area_keyring = build_keyring_extract_parms(profile_name, racf_user_id);
+    if (arg_area_keyring == NULL) {
+      return NULL;
+    }
+    *raw_request_length = (int)sizeof(keyring_extract_arg_area_t);
+    logger_p->debug(
+        MSG_REQUEST_SDL_KEYRING,
+        logger_p->cast_hex_string((char*) arg_area_keyring, *raw_request_length));
+      
+    preserve_raw_request((char*) arg_area_keyring, raw_request, raw_request_length);
+
+    logger_p->debug(MSG_CALLING_SDL);
+
+    result_buffer = extract_keyring(arg_area_keyring, return_codes_p);
+
+    logger_p->debug(MSG_DONE);
+
+    // Preserve Return & Reason Codes
+    return_codes_p->saf_return_code  = ntohl(arg_area_keyring->args.SAF_rc);
+    return_codes_p->racf_return_code = ntohl(arg_area_keyring->args.RACF_rc);
+    return_codes_p->racf_reason_code = ntohl(arg_area_keyring->args.RACF_rsn);
+    // Free Arg Area
+    free(arg_area_keyring);
+  }
 
   // Check Return Codes
-  if (return_codes->saf_return_code != 0 ||
-      return_codes->racf_return_code != 0 ||
-      return_codes->racf_reason_code != 0 || rc != 0) {
+  if (return_codes_p->saf_return_code != 0 ||
+      return_codes_p->racf_return_code != 0 ||
+      return_codes_p->racf_reason_code != 0 || rc != 0) {
     // Free Result Buffer & Return 'NULL' if not successful.
-    free(result_buffer);
-    return NULL;
+    if (result_buffer != NULL) {
+      free(result_buffer);
+      result_buffer = NULL;
+    }
   }
 
   // Return Result if Successful
-  return result_buffer;
+  return (char*) result_buffer;
+}
+
+keyring_extract_arg_area_t *build_keyring_extract_parms(
+    const char *profile_name,
+    const char *racf_user_id) {
+  int profile_name_length;
+  if (profile_name != NULL) {
+    profile_name_length = strlen(profile_name);
+  }
+  int racf_user_id_length;
+  if (racf_user_id != NULL) {
+    racf_user_id_length = strlen(racf_user_id);
+  }
+  
+  keyring_extract_arg_area_t *arg_area_keyring;
+  arg_area_keyring = (keyring_extract_arg_area_t*) calloc(sizeof(keyring_extract_arg_area_t), sizeof(char));
+  if (arg_area_keyring == NULL) {
+    perror(
+        "Fatal - Unable to allocate space for "
+        "'keyring_extract_arg_area_t'.\n");
+    return NULL;
+  }
+
+  if (profile_name != NULL) {
+    strncpy(&arg_area_keyring->args.keyring_extract_parms.cRingName[1], profile_name, 237);
+    arg_area_keyring->args.keyring_extract_parms.cRingName[0] = strlen(&arg_area_keyring->args.keyring_extract_parms.cRingName[1]);
+  }
+
+  if (racf_user_id != NULL) {
+    strncpy(&arg_area_keyring->args.keyring_extract_parms.cRACFUserId[1], racf_user_id, 8);
+    arg_area_keyring->args.keyring_extract_parms.cRACFUserId[0] = strlen(&arg_area_keyring->args.keyring_extract_parms.cRACFUserId[1]);
+  }
+
+  return arg_area_keyring;
 }

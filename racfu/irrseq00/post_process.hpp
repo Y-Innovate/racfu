@@ -4,7 +4,6 @@
 #include <nlohmann/json.hpp>
 
 #include "extract_seq.hpp"
-#include "extract_sdl.hpp"
 
 nlohmann::json post_process_generic(
     generic_extract_parms_results_t *generic_result_buffer,

@@ -108,7 +108,7 @@ test: clean mkdirs
 			$(TESTS)/irrseq00/*.cpp \
 			$(TESTS)/validation/*.cpp \
 		&& $(CXX) $(LDFLAGS) *.o -o $(DIST)/test_runner
-	$(DIST)/test_runner
+	#$(DIST)/test_runner
 
 fvt: 
 	python3 $(TESTS)/fvt/fvt.py

@@ -1,10 +1,8 @@
 #include "logger.hpp"
 
-#include <string.h>
-
 #include <csignal>
 #include <iostream>
-#include <string>
+#include <cstring>
 
 #ifdef __TOS_390__
 #include <unistd.h>

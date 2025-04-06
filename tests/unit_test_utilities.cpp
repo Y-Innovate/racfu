@@ -9,6 +9,7 @@
 #include "racfu/racfu.h"
 #include "tests/mock/irrseq00.hpp"
 #include "tests/mock/irrsmo64.hpp"
+#include "tests/mock/irrsdl64.hpp"
 #include "tests/unity/unity.h"
 
 /*************************************************************************/

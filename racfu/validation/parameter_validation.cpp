@@ -8,7 +8,7 @@
 
 void validate_parameters(nlohmann::json* request_p, nlohmann::json* errors_p,
                          std::string* operation_p, std::string* admin_type_p,
-                         std::string* profile_name_p,
+                         std::string* profile_name_p, std::string* auth_id_p,
                          std::string* class_name_p) {
   // Obtain JSON Parameter information and Validate as appropriate
   nlohmann::json checked_parameters = nlohmann::json::array();

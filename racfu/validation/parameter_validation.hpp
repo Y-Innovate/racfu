@@ -7,7 +7,7 @@
 
 void validate_parameters(nlohmann::json* request_p, nlohmann::json* errors_p,
                          std::string* operation_p, std::string* admin_type_p,
-                         std::string* profile_name_p,
+                         std::string* profile_name_p, std::string* auth_id,
                          std::string* class_name_p);
 
 uint8_t validate_parameter(nlohmann::json* request_p, nlohmann::json* errors_p,
