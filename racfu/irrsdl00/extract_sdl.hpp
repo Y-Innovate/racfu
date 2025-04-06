@@ -8,6 +8,12 @@
 #include "messages.h"
 #include "racfu_result.h"
 
+#ifdef __TOS_390__
+#include <unistd.h>
+#else
+#include "zoslib.h"
+#endif
+
 char *extract_sdl(const char *profile_name, const char *racf_user_id,
     uint8_t function_code, char **raw_request, int *raw_request_length,
     racfu_return_codes_t *return_codes_p, Logger *logger_p);

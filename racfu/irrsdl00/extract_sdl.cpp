@@ -126,11 +126,13 @@ keyring_extract_arg_area_t *build_keyring_extract_parms(
   if (profile_name != NULL) {
     strncpy(&arg_area_keyring->args.keyring_extract_parms.cRingName[1], profile_name, 237);
     arg_area_keyring->args.keyring_extract_parms.cRingName[0] = strlen(&arg_area_keyring->args.keyring_extract_parms.cRingName[1]);
+    __a2e_l(&arg_area_keyring->args.keyring_extract_parms.cRingName[1], strlen(&arg_area_keyring->args.keyring_extract_parms.cRingName[1]));
   }
 
   if (racf_user_id != NULL) {
     strncpy(&arg_area_keyring->args.keyring_extract_parms.cRACFUserId[1], racf_user_id, 8);
     arg_area_keyring->args.keyring_extract_parms.cRACFUserId[0] = strlen(&arg_area_keyring->args.keyring_extract_parms.cRACFUserId[1]);
+    __a2e_l(&arg_area_keyring->args.keyring_extract_parms.cRACFUserId[1], strlen(&arg_area_keyring->args.keyring_extract_parms.cRACFUserId[1]));
   }
 
   return arg_area_keyring;
