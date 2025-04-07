@@ -1,6 +1,7 @@
 #include "irrseq00.hpp"
 #include "tests/irrseq00/test_irrseq00.hpp"
 #include "tests/irrsmo00/test_irrsmo00.hpp"
+#include "tests/irrsdl00/test_irrsdl00.hpp"
 #include "tests/unity/unity.h"
 #include "tests/validation/test_parameter_validation.hpp"
 
@@ -131,6 +132,11 @@ int main() {
   RUN_TEST(test_parse_extract_resource_result_resource_not_found);
   RUN_TEST(test_parse_extract_resource_result_required_parameter_missing);
   RUN_TEST(test_parse_extract_resource_result_extraneous_parameter_provided);
+
+  /*************************************************************************/
+  /* IRRSDL00                                                              */
+  /*************************************************************************/
+  RUN_TEST(test_parse_extract_keyring_result);
 
   return UNITY_END();
 }

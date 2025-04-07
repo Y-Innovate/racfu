@@ -25,7 +25,7 @@ void validate_parameters(nlohmann::json* request_p, nlohmann::json* errors_p,
       "keyring"};
   nlohmann::json valid_non_extract_admin_types{
       "user",     "group",        "group-connection", "resource",
-      "data-set", "racf-options", "permission"};
+      "data-set", "racf-options", "permission",       "keyring"};
   nlohmann::json no_validation = nlohmann::json::object();
 
   // Validate parameters that are always necessary first
@@ -59,6 +59,12 @@ void validate_parameters(nlohmann::json* request_p, nlohmann::json* errors_p,
           *class_name_p = (*request_p)["class_name"].get<std::string>();
         }
         checked_parameters.push_back("class_name");
+      } else if (*admin_type_p == "keyring") {
+        if (validate_parameter(request_p, errors_p, "auth_id",
+                               &no_validation, *admin_type_p, true) == 0) {
+          *auth_id_p = (*request_p)["auth_id"].get<std::string>();
+        }
+        checked_parameters.push_back("auth_id");
       }
     }
     validate_supplemental_parameters(request_p, errors_p, admin_type_p,

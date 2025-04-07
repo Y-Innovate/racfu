@@ -54,6 +54,7 @@ else
 	CFLAGS		= \
 				-std=c++11 -D__ptr32= \
 				-Wno-macro-redefined \
+				--debug \
 				-I $(SRC) \
 				-I $(IRRSMO00_SRC) \
 				-I $(IRRSEQ00_SRC) \
@@ -106,6 +107,7 @@ test: clean mkdirs
 			$(TESTS)/*.cpp \
 			$(TESTS)/irrsmo00/*.cpp \
 			$(TESTS)/irrseq00/*.cpp \
+			$(TESTS)/irrsdl00/*.cpp \
 			$(TESTS)/validation/*.cpp \
 		&& $(CXX) $(LDFLAGS) *.o -o $(DIST)/test_runner
 	$(DIST)/test_runner

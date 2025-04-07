@@ -32,7 +32,7 @@ char *extract_keyring(keyring_extract_arg_area_t *arg_area_keyring,
   int nParmlistVersion = 0;
     cddlx_get_ring_t *lpParmlGetRing;
 
-  lpParmlGetRing = (cddlx_get_ring_t*) (sizeof(cddlx_get_ring_t));
+  lpParmlGetRing = (cddlx_get_ring_t*) calloc(1, sizeof(cddlx_get_ring_t));
 
   if (lpParmlGetRing != NULL) {
     memset(lpParmlGetRing, 0, sizeof(cddlx_get_ring_t));
