@@ -291,14 +291,33 @@ typedef struct {
 /*************************************************************************/
 /* Keyring Extract Result Structures (IRRSDL00 GetRingInfo)              */
 /*************************************************************************/
+typedef struct {                      /* FSPL for GetRingInfo                   */ 
+  unsigned char cddlx_ring_srch_type[4]; /* A 4 byte input value which          
+                                       identifies more rings to be returned when    
+                                       both ring owner and ring name are specified  
+                                       x'00000000' - Return just the ring with the  
+                                       specified ring owner and ring name           
+                                       x'00000001' - Return all rings after the     
+                                       ring specified by ring owner and ring name   
+                                       x'00000002' - Return all rings with the same 
+                                       owner after the ring specified by ring owner 
+                                       and ring name x'00000003' - Return all rings 
+                                       with the same name after the ring specified  
+                                       by ring owner and ring name               */ 
+  uint32_t cddlx_ring_res_len;      /* A 4 byte value containing the size of the 
+                                       field pointed to by Ring_result_ptr       */ 
+  void *cddlx_ring_res_ptr;         /* An input value containing the address of  
+                                       the ring result area                      */ 
+} cddlx_get_ring_t;
+
 typedef struct {
   unsigned int ring_count;
-  char * ring_info;
-} keyring_extract_results_t;
+  char *ring_info;
+} ring_result_t;
 
 typedef struct {
   unsigned int result_buffer_length;
-  keyring_extract_results_t * result_buffer;
+  cddlx_get_ring_t * result_buffer;
 } keyring_extract_parms_results_t;
 
 #pragma pack(pop)  // Restore default structure packing options.

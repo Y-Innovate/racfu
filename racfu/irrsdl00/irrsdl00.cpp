@@ -8,7 +8,8 @@
 
 void call_irrsdl00(keyring_extract_arg_area_t *arg_area,
                     int nParmlistVersion, void *lpParmlist,
-                    racfu_return_codes_t *return_codes_p) {
+                    racfu_return_codes_t *return_codes_p,
+                    Logger *logger_p) {
   int nNumParms = 14;
   char work_area[1024];
   unsigned int alet = 0;
@@ -22,15 +23,20 @@ void call_irrsdl00(keyring_extract_arg_area_t *arg_area,
            &arg_area->args.keyring_extract_parms.cRACFUserId[0],
            &arg_area->args.keyring_extract_parms.cRingName[0],
            &nParmlistVersion, lpParmlist);
+  
+  logger_p->debug("Right after IRRSDL64",
+                  logger_p->cast_hex_string((char*) return_codes_p, sizeof(racfu_return_codes_t)));
+  logger_p->debug("Right after IRRSDL64",
+                  logger_p->cast_hex_string((char*) lpParmlist, 128));
 }
 
 char *extract_keyring(keyring_extract_arg_area_t *arg_area_keyring,
-                      racfu_return_codes_t *return_codes_p) {
+                      racfu_return_codes_t *return_codes_p, Logger *logger_p) {
   arg_area_keyring->args.keyring_extract_parms.cFunctionCode = 0x0D;  // GetRingInfo
   arg_area_keyring->args.keyring_extract_parms.nAttributes = 0;
 
   int nParmlistVersion = 0;
-    cddlx_get_ring_t *lpParmlGetRing;
+  cddlx_get_ring_t *lpParmlGetRing;
 
   lpParmlGetRing = (cddlx_get_ring_t*) calloc(1, sizeof(cddlx_get_ring_t));
 
@@ -39,7 +45,7 @@ char *extract_keyring(keyring_extract_arg_area_t *arg_area_keyring,
     lpParmlGetRing->cddlx_ring_res_len = 4096;
     lpParmlGetRing->cddlx_ring_res_ptr = malloc(lpParmlGetRing->cddlx_ring_res_len);
 
-    call_irrsdl00(arg_area_keyring, nParmlistVersion, lpParmlGetRing, return_codes_p);
+    call_irrsdl00(arg_area_keyring, nParmlistVersion, lpParmlGetRing, return_codes_p, logger_p);
   }
  
   return (char*) lpParmlGetRing;

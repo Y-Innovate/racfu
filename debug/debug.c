@@ -27,9 +27,9 @@ int main(int argc, char **argv) {
   void *lib_handle;
   racfu_t racfu;
 
-  lib_handle = dlopen("racfu.o", RTLD_NOW);
+  lib_handle = dlopen("racfu.so", RTLD_NOW);
   if (lib_handle == NULL) {
-    perror("Unable to load 'racfu.o'.");
+    perror("Unable to load 'racfu.so'.");
     return 2;
   }
 

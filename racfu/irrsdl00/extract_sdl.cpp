@@ -15,8 +15,6 @@ char *extract_sdl(
     int *raw_request_length,   // Always required
     racfu_return_codes_t *return_codes_p,  // Always required,
     Logger *logger_p) {
-  uint32_t rc;
-
   keyring_extract_parms_results_t *results = (keyring_extract_parms_results_t*) calloc(1, sizeof(keyring_extract_parms_results_t));
 
   /*************************************************************************/
@@ -37,7 +35,7 @@ char *extract_sdl(
 
     logger_p->debug(MSG_CALLING_SDL);
 
-    results->result_buffer = (keyring_extract_results_t*) extract_keyring(arg_area_keyring, return_codes_p);
+    results->result_buffer = (cddlx_get_ring_t*) extract_keyring(arg_area_keyring, return_codes_p, logger_p);
 
     logger_p->debug(MSG_DONE);
 
@@ -51,10 +49,11 @@ char *extract_sdl(
           return_codes_p->racf_return_code <= 4 &&
           return_codes_p->racf_reason_code == 0) {
         // Calculate buffer length
-        char *work = results->result_buffer->ring_info;
+        int nRingCount = ((ring_result_t*) ((cddlx_get_ring_t*) results->result_buffer)->cddlx_ring_res_ptr)->ring_count;
+        char *work = ((ring_result_t*) ((cddlx_get_ring_t*) results->result_buffer)->cddlx_ring_res_ptr)->ring_info;
         int nLen = 0;
 
-        for (int i = 0; i < results->result_buffer->ring_count; i++) {
+        for (int i = 0; i < nRingCount; i++) {
           // Count ring owner
           nLen += 1 + *work;
           work += 1 + *work;
@@ -90,7 +89,7 @@ char *extract_sdl(
   // Check Return Codes
   if (return_codes_p->saf_return_code > 4 ||
       return_codes_p->racf_return_code > 4 ||
-      return_codes_p->racf_reason_code != 0 || rc != 0) {
+      return_codes_p->racf_reason_code != 0) {
     // Free Result Buffer & Return 'NULL' if not successful.
     if (results != NULL) {
       free(results);

@@ -16,8 +16,8 @@ nlohmann::json post_process_keyring(
   std::vector<nlohmann::json> repeat_group_certs;
   int repeat_group_certs_count;
 
-  repeat_group_rings_count = keyring_results->result_buffer->ring_count;
-  char *work = keyring_results->result_buffer->ring_info;
+  repeat_group_rings_count = ((ring_result_t*) ((cddlx_get_ring_t*) keyring_results->result_buffer)->cddlx_ring_res_ptr)->ring_count;
+  char *work = ((ring_result_t*) ((cddlx_get_ring_t*) keyring_results->result_buffer)->cddlx_ring_res_ptr)->ring_info;
 
   for (int i = 0; i < repeat_group_rings_count; i++) {
     repeat_group_rings.push_back(nlohmann::json::object());
