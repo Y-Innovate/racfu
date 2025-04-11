@@ -192,7 +192,9 @@ void do_extract(const char *admin_type, const char *profile_name,
       raw_result_length = ntohl(keyring_results->result_buffer_length);
       logger_p->debug(MSG_RESULT_SDL_KEYRING,
                       logger_p->cast_hex_string((char*) keyring_results->result_buffer, raw_result_length));
-      profile_json = post_process_keyring(keyring_results);
+      logger_p->debug(MSG_RESULT_SDL_KEYRING,
+                      logger_p->cast_hex_string((char*) keyring_results->result_buffer->cddlx_ring_res_ptr, keyring_results->ring_info_length));
+      profile_json = post_process_keyring(keyring_results, logger_p);
     }
     // Post Process Setropts Result
   } else {

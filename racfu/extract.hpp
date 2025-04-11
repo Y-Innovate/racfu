@@ -312,11 +312,12 @@ typedef struct {                      /* FSPL for GetRingInfo                   
 
 typedef struct {
   unsigned int ring_count;
-  char *ring_info;
+  char ring_info;
 } ring_result_t;
 
 typedef struct {
   unsigned int result_buffer_length;
+  unsigned int ring_info_length;
   cddlx_get_ring_t * result_buffer;
 } keyring_extract_parms_results_t;
 

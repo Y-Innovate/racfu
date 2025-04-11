@@ -27,7 +27,9 @@ void call_irrsdl00(keyring_extract_arg_area_t *arg_area,
   logger_p->debug("Right after IRRSDL64",
                   logger_p->cast_hex_string((char*) return_codes_p, sizeof(racfu_return_codes_t)));
   logger_p->debug("Right after IRRSDL64",
-                  logger_p->cast_hex_string((char*) lpParmlist, 128));
+                  logger_p->cast_hex_string((char*) lpParmlist, sizeof(cddlx_get_ring_t)));
+  logger_p->debug("Right after IRRSDL64",
+                  logger_p->cast_hex_string((char*) ((cddlx_get_ring_t*) lpParmlist)->cddlx_ring_res_ptr, 128));
 }
 
 char *extract_keyring(keyring_extract_arg_area_t *arg_area_keyring,

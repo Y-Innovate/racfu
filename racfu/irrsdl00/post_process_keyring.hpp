@@ -6,6 +6,7 @@
 #include "extract_sdl.hpp"
 
 nlohmann::json post_process_keyring(
-    keyring_extract_parms_results_t *keyring_result_buffer);
+    keyring_extract_parms_results_t *keyring_result_buffer,
+    Logger *logger_p);
 
 #endif

@@ -14,11 +14,11 @@
 void test_generate_extract_keyring_request() {
   test_extract_request_generation(TEST_EXTRACT_KEYRING_REQUEST_JSON,
                                   TEST_EXTRACT_KEYRING_REQUEST_RAW, false,
-                                  false);
+                                  true);
 }
 
 void test_parse_extract_keyring_result() {
   test_parse_extract_result(TEST_EXTRACT_KEYRING_REQUEST_JSON,
                             TEST_EXTRACT_KEYRING_RESULT_JSON,
-                            TEST_EXTRACT_KEYRING_RESULT_RAW, false);
+                            TEST_EXTRACT_KEYRING_RESULT_RAW, true);
 }

@@ -45,12 +45,16 @@ char *extract_sdl(
     return_codes_p->racf_reason_code = arg_area_keyring->args.RACF_rsn;
 
     if (results->result_buffer != NULL) {
+      results->result_buffer_length = sizeof(cddlx_get_ring_t);
+
       if (return_codes_p->saf_return_code <= 4 &&
           return_codes_p->racf_return_code <= 4 &&
           return_codes_p->racf_reason_code == 0) {
         // Calculate buffer length
         int nRingCount = ((ring_result_t*) ((cddlx_get_ring_t*) results->result_buffer)->cddlx_ring_res_ptr)->ring_count;
-        char *work = ((ring_result_t*) ((cddlx_get_ring_t*) results->result_buffer)->cddlx_ring_res_ptr)->ring_info;
+        logger_p->debug("Ring count", logger_p->cast_hex_string((char*) &nRingCount, 4));
+        char *work = &((ring_result_t*) ((cddlx_get_ring_t*) results->result_buffer)->cddlx_ring_res_ptr)->ring_info;
+        logger_p->debug("Ring info", logger_p->cast_hex_string(work, 16));
         int nLen = 0;
 
         for (int i = 0; i < nRingCount; i++) {
@@ -61,6 +65,8 @@ char *extract_sdl(
           // Count ring name
           nLen += 1 + *work;
           work += 1 + *work;
+
+          logger_p->debug("Parsing ring info", logger_p->cast_hex_string(work, 16));
 
           // Count cert count
           nLen += 4;
@@ -78,7 +84,7 @@ char *extract_sdl(
           }
         }
 
-        results->result_buffer_length = nLen;
+        results->ring_info_length = nLen;
       }
     }
 
@@ -92,6 +98,9 @@ char *extract_sdl(
       return_codes_p->racf_reason_code != 0) {
     // Free Result Buffer & Return 'NULL' if not successful.
     if (results != NULL) {
+      if (results->result_buffer->cddlx_ring_res_ptr != NULL) {
+        free(results->result_buffer->cddlx_ring_res_ptr);
+      }
       free(results);
       results = NULL;
     }
