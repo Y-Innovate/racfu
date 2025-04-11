@@ -37,7 +37,7 @@ nlohmann::json post_process_keyring(
     strncpy(&cRingName[0], work, nLen);
     __e2a_l(&cRingName[0], nLen);
     repeat_group_rings[i]["ring_name"] = cRingName;
-    work += 4;
+    work += nLen;
 
     logger_p->debug("Here", logger_p->cast_hex_string(work, 16));
     repeat_group_certs_count = *((int*) work);
