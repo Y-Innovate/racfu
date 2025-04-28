@@ -22,10 +22,10 @@ static bool check_trait_operator(int8_t trait_operator,
 const char *get_racfu_key(const char *profile_type, const char *segment,
                           const char *racf_key) {
   const trait_key_mapping_t *key_mapping =
-      get_key_mapping(profile_type, segment, racf_key, NULL, TRAIT_TYPE_NULL,
+      get_key_mapping(profile_type, segment, racf_key, nullptr, TRAIT_TYPE_NULL,
                       OPERATOR_ANY, true);
-  if (key_mapping == NULL) {
-    return NULL;
+  if (key_mapping == nullptr) {
+    return nullptr;
   }
   return key_mapping->racfu_key;
 }
@@ -34,31 +34,21 @@ const char *get_racf_key(const char *profile_type, const char *segment,
                          const char *racfu_key, int8_t trait_type,
                          int8_t trait_operator) {
   const trait_key_mapping_t *key_mapping =
-      get_key_mapping(profile_type, segment, NULL, racfu_key, trait_type,
+      get_key_mapping(profile_type, segment, nullptr, racfu_key, trait_type,
                       trait_operator, false);
-  if (key_mapping == NULL) {
-    return NULL;
+  if (key_mapping == nullptr) {
+    return nullptr;
   }
   return key_mapping->racf_key;
 }
 
-const char get_racfu_trait_type(const char *profile_type, const char *segment,
-                                const char *racf_key) {
+const char get_trait_type(const std::string &profile_type,
+                          const std::string &segment,
+                          const std::string &racfu_key) {
   const trait_key_mapping_t *key_mapping =
-      get_key_mapping(profile_type, segment, racf_key, NULL, TRAIT_TYPE_NULL,
-                      OPERATOR_ANY, true);
-  if (key_mapping == NULL) {
-    return TRAIT_TYPE_BAD;
-  }
-  return key_mapping->trait_type;
-}
-
-const char get_racf_trait_type(const char *profile_type, const char *segment,
-                               const char *racfu_key) {
-  const trait_key_mapping_t *key_mapping =
-      get_key_mapping(profile_type, segment, NULL, racfu_key, TRAIT_TYPE_NULL,
-                      OPERATOR_ANY, false);
-  if (key_mapping == NULL) {
+      get_key_mapping(profile_type.c_str(), segment.c_str(), nullptr,
+                      racfu_key.c_str(), TRAIT_TYPE_NULL, OPERATOR_ANY, false);
+  if (key_mapping == nullptr) {
     return TRAIT_TYPE_BAD;
   }
   return key_mapping->trait_type;
@@ -80,27 +70,47 @@ static const trait_key_mapping_t *get_key_mapping(
           for (int k = 0; k < KEY_MAP[i].segments[j].size; k++) {
             // Get the RACFu key mapping for profile extract
             if (extract == true) {
-              if (strcmp(racf_key, KEY_MAP[i].segments[j].traits[k].racf_key) ==
-                  0) {
+              size_t functional_racf_key_length =
+                  strlen(KEY_MAP[i].segments[j].traits[k].racf_key);
+              if (KEY_MAP[i]
+                      .segments[j]
+                      .traits[k]
+                      .racf_key[functional_racf_key_length - 1] == '*') {
+                functional_racf_key_length--;
+              } else {
+                functional_racf_key_length = strlen(racf_key);
+              }
+              if (strncmp(racf_key, KEY_MAP[i].segments[j].traits[k].racf_key,
+                          functional_racf_key_length) == 0) {
                 return &KEY_MAP[i].segments[j].traits[k];
               }
             }
             // Get the RACF key mapping for add/alter/delete
             else {
-              if (strcmp(racfu_key,
-                         KEY_MAP[i].segments[j].traits[k].racfu_key) == 0) {
+              size_t functional_racfu_key_length =
+                  strlen(KEY_MAP[i].segments[j].traits[k].racfu_key);
+              if (KEY_MAP[i]
+                      .segments[j]
+                      .traits[k]
+                      .racfu_key[functional_racfu_key_length - 1] == '*') {
+                functional_racfu_key_length--;
+              } else {
+                functional_racfu_key_length = strlen(racfu_key);
+              }
+              if (strncmp(racfu_key, KEY_MAP[i].segments[j].traits[k].racfu_key,
+                          functional_racfu_key_length) == 0) {
                 // Check trait type
                 trait_type_good = check_trait_type(
                     trait_type, KEY_MAP[i].segments[j].traits[k].trait_type);
                 if (trait_type_good == false) {
-                  return NULL;
+                  return nullptr;
                 }
                 // Check trait operator
                 trait_operator_good = check_trait_operator(
                     trait_operator,
                     &KEY_MAP[i].segments[j].traits[k].operators_allowed);
                 if (trait_operator_good == false) {
-                  return NULL;
+                  return nullptr;
                 }
                 return &KEY_MAP[i].segments[j].traits[k];
               }
@@ -110,7 +120,7 @@ static const trait_key_mapping_t *get_key_mapping(
       }
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 static bool check_trait_type(int8_t actual, int8_t expected) {
@@ -169,11 +179,24 @@ int8_t map_trait_type(const nlohmann::json &trait) {
   if (trait.is_boolean()) {
     return TRAIT_TYPE_BOOLEAN;
   }
-  if (trait.is_string() || trait.is_array()) {
+  if (trait.is_string() or trait.is_array()) {
     return TRAIT_TYPE_STRING;
   }
   if (trait.is_number_unsigned()) {
     return TRAIT_TYPE_UINT;
   }
   return TRAIT_TYPE_BAD;
+}
+
+std::string decode_data_type(uint8_t data_type_code) {
+  switch (data_type_code) {
+    case TRAIT_TYPE_BOOLEAN:
+      return "a 'boolean";
+    case TRAIT_TYPE_UINT:
+      return "an 'unsigned integer";
+    case TRAIT_TYPE_STRING:
+      return "a 'string";
+    default:
+      return "any data type";
+  }
 }

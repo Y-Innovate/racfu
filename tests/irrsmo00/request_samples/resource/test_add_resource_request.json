@@ -1,8 +1,8 @@
 {
   "operation": "add",
   "admin_type": "resource",
-  "profile_name": "TESTING",
-  "class_name": "ELIJTEST",
+  "resource": "TESTING",
+  "class": "ELIJTEST",
   "traits": {
     "base:universal_access": "None",
     "base:owner": "eswift"

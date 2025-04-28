@@ -8,19 +8,19 @@
 const trait_key_mapping_t RACF_OPTIONS_BASE_SEGMENT_MAP[]{
     {
      "base:add_creator_to_access_list", "addcreat",
-     TRAIT_TYPE_STRING,   {true, false, false, true},
+     TRAIT_TYPE_BOOLEAN,   {true, false, false, true},
      },
     {
      "base:automatic_data_set_protection",     "adsp",
-     TRAIT_TYPE_STRING,   {true, false, false, true},
+     TRAIT_TYPE_BOOLEAN,   {true, false, false, true},
      },
     {
      "base:application_logon_auditing", "applaudt",
-     TRAIT_TYPE_STRING,   {true, false, false, true},
+     TRAIT_TYPE_BOOLEAN,   {true, false, false, true},
      },
     {
      "base:audit_classes",    "audit",
-     TRAIT_TYPE_STRING,   {false, true, true, false},
+     TRAIT_TYPE_REPEAT,   {false, true, true, false},
      },
     {
      "base:uncataloged_data_set_access",  "catdsns",
@@ -28,31 +28,31 @@ const trait_key_mapping_t RACF_OPTIONS_BASE_SEGMENT_MAP[]{
      },
     {
      "base:active_classes", "classact",
-     TRAIT_TYPE_STRING,   {false, true, true, false},
+     TRAIT_TYPE_REPEAT,   {false, true, true, false},
      },
     {
      "base:statistics_classes", "classtat",
-     TRAIT_TYPE_STRING,   {false, true, true, false},
+     TRAIT_TYPE_REPEAT,   {false, true, true, false},
      },
     {
      "base:log_racf_command_violations",  "cmdviol",
-     TRAIT_TYPE_STRING,   {true, false, false, true},
+     TRAIT_TYPE_BOOLEAN,   {true, false, false, true},
      },
     {
      "base:security_label_compatibility_mode", "compmode",
-     TRAIT_TYPE_STRING,   {true, false, false, true},
+     TRAIT_TYPE_BOOLEAN,   {true, false, false, true},
      },
     {
      "base:enhanced_generic_naming",      "egn",
-     TRAIT_TYPE_STRING,   {true, false, false, true},
+     TRAIT_TYPE_BOOLEAN,   {true, false, false, true},
      },
     {
      "base:erase_data_sets_on_delete",    "erase",
-     TRAIT_TYPE_STRING,   {true, false, false, true},
+     TRAIT_TYPE_BOOLEAN,   {true, false, false, true},
      },
     {
      "base:erase_data_sets_on_delete_all", "eraseall",
-     TRAIT_TYPE_STRING,   {true, false, false, true},
+     TRAIT_TYPE_BOOLEAN,   {true, false, false, true},
      },
     {
      "base:erase_data_sets_on_delete_security_level", "erasesec",
@@ -60,15 +60,15 @@ const trait_key_mapping_t RACF_OPTIONS_BASE_SEGMENT_MAP[]{
      },
     {
      "base:generic_command_classes",   "gencmd",
-     TRAIT_TYPE_STRING,   {false, true, true, false},
+     TRAIT_TYPE_REPEAT,   {false, true, true, false},
      },
     {
      "base:generic_profile_checking_classes",  "generic",
-     TRAIT_TYPE_STRING,   {false, true, true, false},
+     TRAIT_TYPE_REPEAT,   {false, true, true, false},
      },
     {
      "base:generic_profile_sharing_classes",  "genlist",
-     TRAIT_TYPE_STRING,   {false, true, true, false},
+     TRAIT_TYPE_REPEAT,   {false, true, true, false},
      },
     {
      "base:generic_owner", "genowner",
@@ -76,7 +76,7 @@ const trait_key_mapping_t RACF_OPTIONS_BASE_SEGMENT_MAP[]{
      },
     {
      "base:global_access_classes",   "global",
-     TRAIT_TYPE_STRING,   {false, true, true, false},
+     TRAIT_TYPE_REPEAT,   {false, true, true, false},
      },
     {
      "base:list_of_groups_access_checking",  "grplist",
@@ -88,15 +88,15 @@ const trait_key_mapping_t RACF_OPTIONS_BASE_SEGMENT_MAP[]{
      },
     {
      "base:revoke_inactive_userids_interval", "inactive",
-     TRAIT_TYPE_STRING,   {true, false, false, true},
+     TRAIT_TYPE_UINT,   {true, false, false, true},
      },
     {
      "base:record_user_verification_statistics", "initstat",
-     TRAIT_TYPE_STRING,   {true, false, false, true},
+     TRAIT_TYPE_BOOLEAN,   {true, false, false, true},
      },
     {
      "base:max_password_change_interval", "interval",
-     TRAIT_TYPE_STRING,   {true, false, false, true},
+     TRAIT_TYPE_UINT,   {true, false, false, true},
      },
     {
      "base:jes_batch", "jesbatch",
@@ -120,31 +120,31 @@ const trait_key_mapping_t RACF_OPTIONS_BASE_SEGMENT_MAP[]{
      },
     {
      "base:kerberos_encryption_level",  "kerblvl",
-     TRAIT_TYPE_STRING,  {true, false, false, false},
+     TRAIT_TYPE_UINT,  {true, false, false, false},
      },
     {
      "base:audit_log_always_classes", "logalwys",
-     TRAIT_TYPE_STRING,  {true, false, false, false},
+     TRAIT_TYPE_REPEAT,  {true, false, false, false},
      },
     {
      "base:audit_log_default_classes", "logdeflt",
-     TRAIT_TYPE_STRING,  {true, false, false, false},
+     TRAIT_TYPE_REPEAT,  {true, false, false, false},
      },
     {
      "base:audit_log_failure_classes",  "logfail",
-     TRAIT_TYPE_STRING,  {true, false, false, false},
+     TRAIT_TYPE_REPEAT,  {true, false, false, false},
      },
     {
      "base:audit_log_never_classes", "lognever",
-     TRAIT_TYPE_STRING,  {true, false, false, false},
+     TRAIT_TYPE_REPEAT,  {true, false, false, false},
      },
     {
      "base:audit_log_success_classes",  "logsucc",
-     TRAIT_TYPE_STRING,  {true, false, false, false},
+     TRAIT_TYPE_REPEAT,  {true, false, false, false},
      },
     {
      "base:min_password_change_interval", "minchang",
-     TRAIT_TYPE_STRING,  {true, false, false, false},
+     TRAIT_TYPE_UINT,  {true, false, false, false},
      },
     {
      "base:mixed_case_password_support", "mixdcase",
@@ -200,7 +200,7 @@ const trait_key_mapping_t RACF_OPTIONS_BASE_SEGMENT_MAP[]{
      },
     {
      "base:passphrase_change_interval",   "phrint",
-     TRAIT_TYPE_STRING,  {true, false, false, false},
+     TRAIT_TYPE_UINT,  {true, false, false, false},
      },
     {
      "base:data_set_single_level_name_prefix_protection",   "prefix",
@@ -220,11 +220,11 @@ const trait_key_mapping_t RACF_OPTIONS_BASE_SEGMENT_MAP[]{
      },
     {
      "base:special_character_password_support",  "pwdspec",
-     TRAIT_TYPE_STRING,   {true, false, false, true},
+     TRAIT_TYPE_BOOLEAN,   {true, false, false, true},
      },
     {
      "base:raclist",  "raclist",
-     TRAIT_TYPE_STRING,   {false, true, true, false},
+     TRAIT_TYPE_REPEAT,   {false, true, true, false},
      },
     {
      "base:log_real_data_set_name",  "realdsn",
@@ -236,7 +236,7 @@ const trait_key_mapping_t RACF_OPTIONS_BASE_SEGMENT_MAP[]{
      },
     {
      "base:tape_data_set_security_retention_period",    "retpd",
-     TRAIT_TYPE_STRING,  {true, false, false, false},
+     TRAIT_TYPE_UINT,  {true, false, false, false},
      },
     {
      "base:max_incorrect_password_attempts",   "revoke",
@@ -308,7 +308,7 @@ const trait_key_mapping_t RACF_OPTIONS_BASE_SEGMENT_MAP[]{
      },
     {
      "base:max_session_key_interval",  "sessint",
-     TRAIT_TYPE_STRING,   {true, false, false, true},
+     TRAIT_TYPE_UINT,   {true, false, false, true},
      },
     {
      "base:security_label_auditing", "slabaudt",
@@ -332,7 +332,7 @@ const trait_key_mapping_t RACF_OPTIONS_BASE_SEGMENT_MAP[]{
      },
     {
      "base:password_expiration_warning",  "warning",
-     TRAIT_TYPE_STRING,   {true, false, false, true},
+     TRAIT_TYPE_UINT,   {true, false, false, true},
      },
     {
      "base:program_control", "whenprog",

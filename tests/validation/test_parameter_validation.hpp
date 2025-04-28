@@ -32,20 +32,6 @@
   VALIDATION_RESULT_SAMPLES "test_syntax_error_not_json_result.json"
 #define TEST_SYNTAX_ERROR_BINARY_DATA_RESULT_JSON \
   VALIDATION_RESULT_SAMPLES "test_syntax_error_binary_data_result.json"
-#define TEST_NO_PARAMETERS_PROVIDED_RESULT_JSON \
-  VALIDATION_RESULT_SAMPLES "test_no_parameters_provided_result.json"
-#define TEST_JUNK_JSON_RESULT_JSON \
-  VALIDATION_RESULT_SAMPLES "test_junk_json_result.json"
-#define TEST_PARAMETERS_JUNK_RESULT_JSON \
-  VALIDATION_RESULT_SAMPLES "test_parameters_junk_result.json"
-#define TEST_PARAMETERS_NONSTRING_RESULT_JSON \
-  VALIDATION_RESULT_SAMPLES "test_parameters_nonstring_result.json"
-#define TEST_PARAMETERS_MISSING_RESULT_JSON \
-  VALIDATION_RESULT_SAMPLES "test_parameters_missing_result.json"
-#define TEST_EXTRANEOUS_AND_MISSING_PARAMETERS_RESULT_JSON \
-  VALIDATION_RESULT_SAMPLES                                \
-  "test_extraneous_and_missing_parameters_result."         \
-  "json"
 
 // Prototypes
 void test_handle_syntax_error();

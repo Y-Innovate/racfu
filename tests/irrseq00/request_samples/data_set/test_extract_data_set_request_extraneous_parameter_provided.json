@@ -1,7 +1,7 @@
 {
   "operation": "extract",
   "admin_type": "data-set",
-  "profile_name": "LEONARD.TEST.*",
+  "data_set": "LEONARD.TEST.*",
   "traits": {
     "omvs:uid": 24
   }

@@ -1,0 +1,20 @@
+{
+  "profile": {
+    "base": {
+      "base:create_date": "03/10/25",
+      "base:owner": "IBMUSER",
+      "base:superior_group": "SYS1",
+      "base:terminal_universal_access": true,
+      "base:universal": false
+    },
+    "csdata": {
+      "csdata:sample": "Test field 5678"
+    }
+  },
+  "return_codes": {
+    "racf_reason_code": 0,
+    "racf_return_code": 0,
+    "racfu_return_code": 0,
+    "saf_return_code": 0
+  }
+}

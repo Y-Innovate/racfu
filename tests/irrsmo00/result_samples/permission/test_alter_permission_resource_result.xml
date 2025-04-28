@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+  <permission operation="set" name="IRR.IRRSMO00.PRECHECK" class="XFACILIT" requestid="permission_request">
+    <command>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>PERMIT               IRR.IRRSMO00.PRECHECK CLASS(XFACILIT)  ACCESS      (READ) ID          (SQUIDWRD)</image>
+      <message>ICH06011I RACLISTED PROFILES FOR XFACILIT WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED</message>
+    </command>
+  </permission>
+  <returncode>0</returncode>
+  <reasoncode>0</reasoncode>
+</securityresult>

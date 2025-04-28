@@ -1,0 +1,11 @@
+{
+  "operation": "alter",
+  "admin_type": "permission",
+  "resource": "IRR.IRRSMO00.PRECHECK",
+  "class": "XFACILIT",
+  "volume": "MYVOL",
+  "userid": "SQUIDWRD",
+  "traits": {
+    "base:access": "READ"
+  }
+}

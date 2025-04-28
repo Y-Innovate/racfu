@@ -14,7 +14,7 @@ typedef struct {
   char *result_json;
 } racfu_result_t;
 
-typedef void (*racfu_t)(racfu_result_t *, char *, bool);
+typedef racfu_result_t *(*racfu_t)(const char *, bool);
 
 int main(int argc, char **argv) {
   // Parameter Validation
@@ -54,8 +54,7 @@ int main(int argc, char **argv) {
   fclose(fp);
 
   // Make Request;
-  racfu_result_t racfu_result;
-  racfu(&racfu_result, request_json, true);
+  racfu_result_t *racfu_result = racfu(request_json, true);
   dlclose(lib_handle);
 
   // Write Raw Request
@@ -66,7 +65,7 @@ int main(int argc, char **argv) {
     printf("Unable to open '%s' for writing.\n", raw_request_file);
     return 5;
   }
-  fwrite(racfu_result.raw_request, racfu_result.raw_request_length, 1, fp);
+  fwrite(racfu_result->raw_request, racfu_result->raw_request_length, 1, fp);
   fclose(fp);
 
   // Write Raw Result
@@ -77,7 +76,7 @@ int main(int argc, char **argv) {
     printf("Unable to open '%s' for writing.\n", raw_result_file);
     return 6;
   }
-  fwrite(racfu_result.raw_result, racfu_result.raw_result_length, 1, fp);
+  fwrite(racfu_result->raw_result, racfu_result->raw_result_length, 1, fp);
   fclose(fp);
 
   // Write Result JSON
@@ -88,12 +87,8 @@ int main(int argc, char **argv) {
     printf("Unable to open '%s' for wirting.\n", "result_json_file");
     return 7;
   }
-  fwrite(racfu_result.result_json, strlen(racfu_result.result_json), 1, fp);
+  fwrite(racfu_result->result_json, strlen(racfu_result->result_json), 1, fp);
   fclose(fp);
-
-  // Free Memory
-  free(racfu_result.raw_result);
-  free(racfu_result.result_json);
 
   return 0;
 }

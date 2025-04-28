@@ -58,7 +58,7 @@ const trait_key_mapping_t GROUP_BASE_SEGMENT_MAP[]{
 
 const trait_key_mapping_t GROUP_CSDATA_KEY_MAP[]{
     {
-     "csdata:", "",
+     "csdata:*", "*",
      TRAIT_TYPE_STRING, {true, false, false, true},
      }
 };

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+  <dataset operation="set" name="ESWIFT.TEST.**" generic="yes" requestid="dataset_request">
+    <info>Definition exists. Add command skipped due  to precheck option</info>
+    <info>Override=no. Definition exists.  Alter command skipped due to precheck option.</info>
+  </dataset>
+  <returncode>0</returncode>
+  <reasoncode>0</reasoncode>
+</securityresult>

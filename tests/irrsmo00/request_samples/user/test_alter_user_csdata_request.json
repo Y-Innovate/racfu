@@ -1,0 +1,12 @@
+{
+  "operation": "alter",
+  "admin_type": "user",
+  "userid": "SQUIDWRD",
+  "traits": {
+    "base:name": "Squilliam",
+    "omvs:uid": null,
+    "base:special": false,
+    "base:auditor": true,
+    "csdata:custom_field": "custom_value"
+  }
+}

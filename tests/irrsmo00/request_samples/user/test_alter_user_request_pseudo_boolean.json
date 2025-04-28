@@ -1,0 +1,14 @@
+{
+  "operation": "alter",
+  "admin_type": "user",
+  "userid": "SQUIDWRD",
+  "traits": {
+    "base:name": "Squilliam",
+    "omvs:uid": null,
+    "base:special": false,
+    "base:auditor": true,
+    "operparm:receive_automated_messages": true,
+    "operparm:receive_hardcopy_messages": false,
+    "delete:operparm:receive_internal_console_messages": null
+  }
+}

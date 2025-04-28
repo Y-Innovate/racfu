@@ -1,7 +1,7 @@
 {
   "operation": "add",
   "admin_type": "data-set",
-  "profile_name": "ESWIFT.TEST.T1136242.P3020470",
+  "data_set": "ESWIFT.TEST.T1136242.P3020470",
   "traits": {
     "junkop:base:universal_access": "None"
   }

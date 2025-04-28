@@ -10,6 +10,7 @@
 #define TRAIT_TYPE_STRING 2
 #define TRAIT_TYPE_UINT 3
 #define TRAIT_TYPE_REPEAT 4
+#define TRAIT_TYPE_PSEUDO_BOOLEAN 5
 
 // Operators
 #define OPERATOR_BAD -1

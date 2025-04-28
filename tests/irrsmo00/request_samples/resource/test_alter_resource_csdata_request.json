@@ -1,0 +1,11 @@
+{
+  "operation": "alter",
+  "admin_type": "resource",
+  "resource": "TESTING",
+  "class": "ELIJTEST",
+  "traits": {
+    "base:universal_access": "Read",
+    "base:owner": "eswift",
+    "csdata:custom_field": "custom_value"
+  }
+}

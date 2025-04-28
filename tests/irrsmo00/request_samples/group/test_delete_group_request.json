@@ -1,5 +1,5 @@
 {
   "operation": "delete",
   "admin_type": "group",
-  "profile_name": "TESTGRP0"
+  "group": "TESTGRP0"
 }

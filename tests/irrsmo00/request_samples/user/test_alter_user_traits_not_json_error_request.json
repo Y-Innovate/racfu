@@ -1,6 +1,6 @@
 {
   "operation": "alter",
   "admin_type": "user",
-  "profile_name": "SQUIDWRD",
+  "userid": "SQUIDWRD",
   "traits": true
 }

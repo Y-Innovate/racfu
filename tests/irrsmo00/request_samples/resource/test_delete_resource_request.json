@@ -1,6 +1,6 @@
 {
   "operation": "delete",
   "admin_type": "resource",
-  "profile_name": "TESTING",
-  "class_name": "ELIJTEST"
+  "resource": "TESTING",
+  "class": "ELIJTEST"
 }

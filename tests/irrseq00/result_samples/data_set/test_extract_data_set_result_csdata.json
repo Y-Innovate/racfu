@@ -1,0 +1,32 @@
+{
+  "profile": {
+    "base": {
+      "base:alter_access_count": 0,
+      "base:auditing": "FAILURES(READ)",
+      "base:control_access_count": 0,
+      "base:create_date": "03/10/25",
+      "base:creation_group_name": "SYS1",
+      "base:data_set_type": "NON-VSAM",
+      "base:erase_data_sets_on_delete": false,
+      "base:global_auditing": "NONE",
+      "base:high_level_qualifier_is_group": false,
+      "base:last_change_date": "03/10/25",
+      "base:last_reference_date": "03/10/25",
+      "base:level": 0,
+      "base:owner": "SQUIDWRD",
+      "base:read_access_count": 0,
+      "base:universal_access": "READ",
+      "base:update_access_count": 0,
+      "base:warn_on_insufficient_access": false
+    },
+    "csdata": {
+      "csdata:sample": "Test field 3456"
+    }
+  },
+  "return_codes": {
+    "racf_reason_code": 0,
+    "racf_return_code": 0,
+    "racfu_return_code": 0,
+    "saf_return_code": 0
+  }
+}

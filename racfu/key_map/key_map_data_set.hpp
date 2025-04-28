@@ -242,7 +242,7 @@ const trait_key_mapping_t DATA_SET_BASE_SEGMENT_MAP[]{
 
 const trait_key_mapping_t DATA_SET_CSDATA_KEY_MAP[]{
     {
-     "csdata:", "",
+     "csdata:*", "*",
      TRAIT_TYPE_STRING, {true, false, false, true},
      }
 };

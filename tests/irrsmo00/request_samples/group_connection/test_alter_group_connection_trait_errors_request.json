@@ -1,7 +1,7 @@
 {
   "operation": "alter",
   "admin_type": "group-connection",
-  "profile_name": "eswift",
+  "userid": "eswift",
   "group": "TESTGRP0",
   "traits": {
     "junkop:base:special": true

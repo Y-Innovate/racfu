@@ -1,7 +1,7 @@
 {
   "operation": "add",
   "admin_type": "group",
-  "profile_name": "TESTGRP0",
+  "group": "TESTGRP0",
   "traits": {
     "omvs:gid": 6667
   }

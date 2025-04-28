@@ -1,6 +1,6 @@
 {
   "errors": [
-    "racfu: 'traits' is not a valid parameter for the 'extract' operation"
+    "racfu: 'traits' is not a valid parameter for the 'user' admin type and 'extract' operation"
   ],
   "return_codes": {
     "racf_reason_code": null,

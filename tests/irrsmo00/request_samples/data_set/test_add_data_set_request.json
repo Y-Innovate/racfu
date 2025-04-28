@@ -1,8 +1,8 @@
 {
   "operation": "add",
   "admin_type": "data-set",
-  "profile_name": "ESWIFT.TEST.**",
-  "generic": "yes",
+  "data_set": "ESWIFT.TEST.**",
+  "generic": true,
   "traits": {
     "base:universal_access": "None",
     "base:owner": "eswift"

@@ -1,0 +1,80 @@
+{
+  "profile": {
+    "base": {
+      "base:audit_logging": false,
+      "base:audit_responsibility": false,
+      "base:auditor": false,
+      "base:automatic_data_set_protection": false,
+      "base:create_date": "03/14/25",
+      "base:default_group": "SYS1",
+      "base:group_connections": [
+        {
+          "base:group_connection_auditor": false,
+          "base:group_connection_automatic_data_set_protection": false,
+          "base:group_connection_create_date": "03/14/25",
+          "base:group_connection_data_set_access": false,
+          "base:group_connection_group": "SYS1",
+          "base:group_connection_last_connect_date": null,
+          "base:group_connection_last_connect_time": null,
+          "base:group_connection_operations": false,
+          "base:group_connection_owner": "LEONARD",
+          "base:group_connection_resume_date": null,
+          "base:group_connection_revoke_date": null,
+          "base:group_connection_revoked": false,
+          "base:group_connection_special": false,
+          "base:group_connection_universal_access": "NONE",
+          "base:group_connection_used_count": 0
+        }
+      ],
+      "base:group_data_set_access": false,
+      "base:has_passphrase": false,
+      "base:has_password": false,
+      "base:logon_allowed_days": [
+        {
+          "base:logon_allowed_day": "SUNDAY"
+        },
+        {
+          "base:logon_allowed_day": "MONDAY"
+        },
+        {
+          "base:logon_allowed_day": "TUESDAY"
+        },
+        {
+          "base:logon_allowed_day": "WEDNESDAY"
+        },
+        {
+          "base:logon_allowed_day": "THURSDAY"
+        },
+        {
+          "base:logon_allowed_day": "FRIDAY"
+        },
+        {
+          "base:logon_allowed_day": "SATURDAY"
+        }
+      ],
+      "base:logon_allowed_time": "ANYTIME",
+      "base:mfa_password_fallback": false,
+      "base:operations": false,
+      "base:owner": "LEONARD",
+      "base:passphrase_change_interval": 0,
+      "base:passphrase_enveloped": false,
+      "base:password_change_interval": 186,
+      "base:password_enveloped": false,
+      "base:protected": true,
+      "base:restrict_global_access_checking": false,
+      "base:revoked": false,
+      "base:special": false
+    },
+    "operparm": {
+      "operparm:message_queue_storage": "0",
+      "operparm:receive_hardcopy_messages": true,
+      "operparm:receive_internal_console_messages": false
+    }
+  },
+  "return_codes": {
+    "racf_reason_code": 0,
+    "racf_return_code": 0,
+    "racfu_return_code": 0,
+    "saf_return_code": 0
+  }
+}

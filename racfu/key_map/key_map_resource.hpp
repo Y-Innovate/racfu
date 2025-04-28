@@ -279,7 +279,7 @@ const trait_key_mapping_t RESOURCE_CDTINFO_KEY_MAP[]{
      },
     {
      "cdtinfo:operations",  "cdtoper",
-     TRAIT_TYPE_STRING,   {true, false, false, true},
+     TRAIT_TYPE_PSEUDO_BOOLEAN,   {true, false, false, true},
      },
     {
      "cdtinfo:valid_other_character", "cdtother",
@@ -295,7 +295,7 @@ const trait_key_mapping_t RESOURCE_CDTINFO_KEY_MAP[]{
      },
     {
      "cdtinfo:profiles_allowed", "cdtprfal",
-     TRAIT_TYPE_STRING,   {true, false, false, true},
+     TRAIT_TYPE_PSEUDO_BOOLEAN,   {true, false, false, true},
      },
     {
      "cdtinfo:raclist_allowed",  "cdtracl",
@@ -303,11 +303,11 @@ const trait_key_mapping_t RESOURCE_CDTINFO_KEY_MAP[]{
      },
     {
      "cdtinfo:send_enf_signal_on_profile_creation",  "cdtsigl",
-     TRAIT_TYPE_STRING,   {true, false, false, true},
+     TRAIT_TYPE_PSEUDO_BOOLEAN,   {true, false, false, true},
      },
     {
      "cdtinfo:security_label_required", "cdtslreq",
-     TRAIT_TYPE_STRING,   {true, false, false, true},
+     TRAIT_TYPE_PSEUDO_BOOLEAN,   {true, false, false, true},
      },
     {
      "cdtinfo:default_universal_access",  "cdtuacc",
@@ -334,7 +334,7 @@ const trait_key_mapping_t RESOURCE_CFDEF_KEY_MAP[]{
      },
     {
      "cfdef:mixed_case_allowed", "cfmixed",
-     TRAIT_TYPE_STRING, {true, false, false, false},
+     TRAIT_TYPE_PSEUDO_BOOLEAN, {true, false, false, false},
      },
     {
      "cfdef:min_numeric_value", "cfmnval",
@@ -360,7 +360,7 @@ const trait_key_mapping_t RESOURCE_CFDEF_KEY_MAP[]{
 
 const trait_key_mapping_t RESOURCE_CSDATA_KEY_MAP[]{
     {
-     "csdata:", "",
+     "csdata:*", "*",
      TRAIT_TYPE_STRING, {true, false, false, true},
      }
 };
@@ -406,7 +406,7 @@ const trait_key_mapping_t RESOURCE_EIM_KEY_MAP[]{
 const trait_key_mapping_t RESOURCE_KERB_KEY_MAP[]{
     {
      "kerb:validate_addresses", "chkaddrs",
-     TRAIT_TYPE_STRING,   {true, false, false, true},
+     TRAIT_TYPE_PSEUDO_BOOLEAN,   {true, false, false, true},
      },
     {
      "kerb:default_ticket_life", "deftktlf",
@@ -523,7 +523,7 @@ const trait_key_mapping_t RESOURCE_IDTPARMS_KEY_MAP[]{
      },
     {
      "idtparms:use_for_any_application",  "anyappl",
-     TRAIT_TYPE_STRING,  {true, false, false, true},
+     TRAIT_TYPE_PSEUDO_BOOLEAN,  {true, false, false, true},
      }
 };
 

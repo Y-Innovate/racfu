@@ -1,7 +1,8 @@
 {
   "operation": "extract",
   "admin_type": "group-connection",
-  "profile_name": "ESWIFT.TESTGRP0",
+  "userid": "ESWIFT",
+  "group": "TESTGRP0",
   "traits": {
     "omvs:uid": 24
   }

@@ -1,0 +1,9 @@
+{
+  "operation": "alter",
+  "admin_type": "group",
+  "group": "TESTGRP0",
+  "traits": {
+    "omvs:gid": 1234567,
+    "csdata:custom_field": "custom_value"
+  }
+}

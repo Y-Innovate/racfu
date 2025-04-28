@@ -1,0 +1,17 @@
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+  <user operation="set" name="SQUIDWRD" requestid="user_request">
+    <base>
+      <racf:auditor operation="set"/>
+      <racf:name operation="set">Squilliam</racf:name>
+      <racf:special operation="del"/>
+    </base>
+    <operparm>
+      <racf:intids operation="del"/>
+      <racf:auto operation="set">YES</racf:auto>
+      <racf:hc operation="set">NO</racf:hc>
+    </operparm>
+    <omvs>
+      <racf:uid operation="del"/>
+    </omvs>
+  </user>
+</securityrequest>

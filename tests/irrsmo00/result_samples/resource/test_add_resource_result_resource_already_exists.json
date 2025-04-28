@@ -1,6 +1,6 @@
 {
   "errors": [
-    "racfu: unable to add 'TESTING' in the 'ELIJTEST' class because a profile already exists with that name"
+    "racfu: unable to add 'TESTING' in the 'ELIJTEST' class because a 'resource' profile already exists in the 'ELIJTEST' class with that name"
    ],
   "return_codes": {
     "racf_reason_code": 0,

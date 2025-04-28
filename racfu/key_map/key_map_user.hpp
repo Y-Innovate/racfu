@@ -325,7 +325,7 @@ const trait_key_mapping_t USER_CICS_KEY_MAP[]{
 
 const trait_key_mapping_t USER_CSDATA_KEY_MAP[]{
     {
-     "csdata:", "",
+     "csdata:*", "*",
      TRAIT_TYPE_STRING, {true, false, false, true},
      }
 };
@@ -555,7 +555,7 @@ const trait_key_mapping_t USER_OPERPARM_KEY_MAP[]{
      },
     {
      "operparm:receive_automated_messages",     "auto",
-     TRAIT_TYPE_STRING,   {true, false, false, true},
+     TRAIT_TYPE_PSEUDO_BOOLEAN,   {true, false, false, true},
      },
     {
      "operparm:command_target_system",   "cmdsys",
@@ -567,11 +567,11 @@ const trait_key_mapping_t USER_OPERPARM_KEY_MAP[]{
      },
     {
      "operparm:receive_hardcopy_messages",       "hc",
-     TRAIT_TYPE_STRING,   {true, false, false, true},
+     TRAIT_TYPE_PSEUDO_BOOLEAN,   {true, false, false, true},
      },
     {
      "operparm:receive_internal_console_messages",   "intids",
-     TRAIT_TYPE_STRING,   {true, false, false, true},
+     TRAIT_TYPE_PSEUDO_BOOLEAN,   {true, false, false, true},
      },
     {
      "operparm:console_searching_key",      "key",
@@ -595,7 +595,7 @@ const trait_key_mapping_t USER_OPERPARM_KEY_MAP[]{
      },
     {
      "operparm:migration_id",    "migid",
-     TRAIT_TYPE_STRING,   {true, false, false, true},
+     TRAIT_TYPE_PSEUDO_BOOLEAN,   {true, false, false, true},
      },
     {
      "operparm:monitor_event",  "monitor",
@@ -635,11 +635,11 @@ const trait_key_mapping_t USER_OPERPARM_KEY_MAP[]{
      },
     {
      "operparm:receive_undelivered_messages",       "ud",
-     TRAIT_TYPE_STRING,   {true, false, false, true},
+     TRAIT_TYPE_PSEUDO_BOOLEAN,   {true, false, false, true},
      },
     {
      "operparm:receive_unknown_console_id_messages",  "unknids",
-     TRAIT_TYPE_STRING,   {true, false, false, true},
+     TRAIT_TYPE_PSEUDO_BOOLEAN,   {true, false, false, true},
      }
 };
 

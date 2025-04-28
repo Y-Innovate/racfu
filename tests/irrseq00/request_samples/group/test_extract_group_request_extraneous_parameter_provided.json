@@ -1,7 +1,7 @@
 {
   "admin_type": "group",
   "operation": "extract",
-  "profile_name": "TESTGRP0",
+  "group": "TESTGRP0",
   "traits": {
     "omvs:uid": 24
   }

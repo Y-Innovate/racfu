@@ -1,7 +1,7 @@
 {
   "operation": "alter",
   "admin_type": "racf-options",
-  "profile_name": "eswift",
+  "userid": "eswift",
   "traits": {
     "base:raclist": "ELIJTEST"
   }

@@ -13,13 +13,19 @@
 #define TEST_IRRSEQ00_RACF_OPTIONS_REQUEST_BUFFER_SIZE 1428
 #endif
 
-// arg area should be the same on every platform
+// arg area should be the same on every platform.
 #define TEST_IRRSEQ00_GENERIC_ARG_AREA_SIZE 1362
 #define TEST_IRRSEQ00_RACF_OPTIONS_ARG_AREA_SIZE 1316
+
+// This result sample is used in several places.
+#define TEST_PARAMETER_VALIDATION_ERROR_RESULT_JSON \
+  "./tests/validation/result_samples/"              \
+  "test_parameter_validation_error_result.json"
 
 // Common
 char *get_sample(const char *filename, const char *mode);
 char *get_raw_sample(const char *filename);
+char *get_xml_sample(const char *filename, int *length);
 std::string get_json_sample(const char *filename);
 void test_validation_errors(const char *test_request_json,
                             const char *test_validation_errors_result_json,
@@ -40,7 +46,8 @@ void test_parse_extract_result_profile_not_found(
 // IRRSMO00
 void test_generate_add_alter_delete_request_generation(
     const char *test_add_alter_delete_request_json,
-    const char *test_add_alter_delete_request_raw, bool debug);
+    const char *test_add_alter_delete_request_raw,
+    int irrsmo00_options_expected, bool debug);
 void test_parse_add_alter_delete_result(
     const char *test_add_alter_delete_request_json,
     const char *test_add_alter_delete_result_json,

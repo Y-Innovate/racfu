@@ -1,8 +1,8 @@
 {
   "operation": "alter",
   "admin_type": "resource",
-  "profile_name": "TESTING",
-  "class_name": "ELIJTEST",
+  "resource": "TESTING",
+  "class": "ELIJTEST",
   "traits": {
     "base:universal_access": "Read",
     "base:owner": "eswift"

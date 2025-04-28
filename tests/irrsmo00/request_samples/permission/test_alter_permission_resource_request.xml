@@ -1,0 +1,6 @@
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+  <permission operation="set" name="IRR.IRRSMO00.PRECHECK" class="XFACILIT" requestid="permission_request">
+    <racf:access operation="set">READ</racf:access>
+    <racf:id operation="set">SQUIDWRD</racf:id>
+  </permission>
+</securityrequest>

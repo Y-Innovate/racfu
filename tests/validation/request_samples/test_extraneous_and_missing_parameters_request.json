@@ -1,7 +1,7 @@
 {
   "operation": "extract",
   "admin_type": "resource",
-  "profile_name": "IRR.IRRSMO00.PRECHECK",
+  "resource": "IRR.IRRSMO00.PRECHECK",
   "traits": {
     "omvs:uid": 24
   }

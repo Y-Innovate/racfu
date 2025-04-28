@@ -7,9 +7,19 @@ repos:
         exclude: ^externals/|^tests/unity/
   - repo: local
     hooks:
+      - id: cppcheck
+        name: cppcheck
+        entry: make check
+        language: system
+        pass_filenames: false
+        always_run: true
+        verbose: true
+  - repo: local
+    hooks:
       - id: unit-test
         name: unit-test
         entry: make test
         language: system
         pass_filenames: false
         always_run: true
+        verbose: true

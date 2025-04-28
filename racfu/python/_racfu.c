@@ -19,20 +19,14 @@ static PyObject* call_racfu(PyObject* self, PyObject* args, PyObject* kwargs) {
     return NULL;
   }
 
-  debug = PyObject_IsTrue(debug_pyobj);
+  debug                  = PyObject_IsTrue(debug_pyobj);
 
-  racfu_result_t result;
+  racfu_result_t* result = racfu(request_as_string, debug);
 
-  racfu(&result, request_as_string, debug);
-
-  result_dictionary = Py_BuildValue(
-      "{s:y#,s:y#,s:s}", "raw_request", result.raw_request,
-      result.raw_request_length, "raw_result", result.raw_result,
-      result.raw_result_length, "result_json", result.result_json);
-
-  free(result.raw_request);
-  free(result.raw_result);
-  free(result.result_json);
+  result_dictionary      = Py_BuildValue(
+      "{s:y#,s:y#,s:s}", "raw_request", result->raw_request,
+      result->raw_request_length, "raw_result", result->raw_result,
+      result->raw_result_length, "result_json", result->result_json);
 
   return result_dictionary;
 }
@@ -50,6 +44,9 @@ static struct PyModuleDef _C_module_def = {
     -1, _C_methods};
 
 // Module initialization function
+// 'unusedFunction' is a false positive since 'PyInit__C()' is used by the
+// Python interpreter
+// cppcheck-suppress unusedFunction
 PyMODINIT_FUNC PyInit__C(void) {
   Py_Initialize();
   return PyModule_Create(&_C_module_def);

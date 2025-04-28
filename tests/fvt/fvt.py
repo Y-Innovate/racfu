@@ -16,7 +16,7 @@ if "RACFU_FVT_USERID" not in os.environ:
 extract_request = {
   "admin_type": "user",
   "operation": "extract",
-  "profile_name": getpass.getuser()
+  "userid": getpass.getuser()
 }
 
 # This request will fail, but it demonstrates that
@@ -24,7 +24,7 @@ extract_request = {
 delete_request = {
   "admin_type": "user",
   "operation": "delete",
-  "profile_name": os.environ["RACFU_FVT_USERID"],
+  "userid": os.environ["RACFU_FVT_USERID"],
 }
 
 print("Extract Test (IRRSEQ00):")

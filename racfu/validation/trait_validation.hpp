@@ -4,11 +4,14 @@
 #include <cstdint>
 #include <nlohmann/json.hpp>
 #include <string>
+#include <vector>
 
-void validate_traits(std::string adminType, nlohmann::json *traits_p,
-                     nlohmann::json *errors_p);
-void validate_json_value_to_string(const nlohmann::json &trait,
+#include "security_request.hpp"
+
+void validate_traits(const std::string& admin_type,
+                     RACFu::SecurityRequest& request);
+void validate_json_value_to_string(const nlohmann::json& trait,
                                    char expected_type,
-                                   nlohmann::json *errors_p);
+                                   std::vector<std::string>& errors);
 
 #endif

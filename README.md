@@ -25,6 +25,9 @@ All versions of **z/OS** and the **IBM Open Enterprise SDK for Python** that are
   * More details about the authorizations required for **IRRSEQ00** can be found [here](https://www.ibm.com/docs/en/zos/latest?topic=api-racf-authorization).
 * **RACF Subsystem Address Space**: This is a dependency for both **IRRSMO00** and **IRRSEQ00**.
   * More information can be found [here](https://www.ibm.com/docs/en/zos/latest?topic=considerations-racf-subsystem).
+* **z/OS Language Environment Runtime Support**: RACFu is compiled using the **IBM Open XL C/C++ 2.1** compiler, which is still fairly new and requires **z/OS Language Environment** service updates for runtime support.
+  * More information can be found in section **5.2.2.2 Operational Requisites** on page **9** in the [Program Directory for IBM Open XL C/C++ 2.1 for z/OS](https://publibfp.dhe.ibm.com/epubs/pdf/i1357012.pdf).
+
 
 ### Installation
 

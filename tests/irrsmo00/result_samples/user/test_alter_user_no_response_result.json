@@ -3,9 +3,9 @@
     "racfu: unable to alter 'SQUIDWRD' because the profile does not exist"
   ],
   "return_codes": {
-    "racf_reason_code": null,
-    "racf_return_code": null,
+    "racf_reason_code": 0,
+    "racf_return_code": 4,
     "racfu_return_code": 8,
-    "saf_return_code": null
+    "saf_return_code": 4
   }
 }

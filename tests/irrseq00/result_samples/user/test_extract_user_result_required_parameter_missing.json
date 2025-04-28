@@ -1,6 +1,6 @@
 {
   "errors": [
-    "racfu: 'profile_name' is a required parameter for the 'user' admin type"
+    "racfu: 'userid' is a required parameter for the 'user' admin type and 'extract' operation"
   ],
   "return_codes": {
     "racf_reason_code": null,

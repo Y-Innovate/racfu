@@ -1,0 +1,35 @@
+{
+  "profile": {
+    "base": {
+      "base:access_list": [
+        {
+          "base:access_count": 0,
+          "base:access_id": "IBMUSER",
+          "base:access_type": "ALTER"
+        }
+      ],
+      "base:alter_access_count": 0,
+      "base:auditing": "FAILURES(READ)",
+      "base:control_access_count": 0,
+      "base:create_date": "03/10/25",
+      "base:global_auditing": "NONE",
+      "base:last_change_date": "03/10/25",
+      "base:last_reference_date": "03/10/25",
+      "base:level": "0",
+      "base:owner": "IBMUSER",
+      "base:read_access_count": 0,
+      "base:universal_access": "NONE",
+      "base:update_access_count": 0,
+      "base:warn_on_insufficient_access": false
+    },
+    "csdata": {
+      "csdata:sample": "Test field 1278"
+    }
+  },
+  "return_codes": {
+    "racf_reason_code": 0,
+    "racf_return_code": 0,
+    "racfu_return_code": 0,
+    "saf_return_code": 0
+  }
+}

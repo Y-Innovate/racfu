@@ -1,8 +1,8 @@
 {
   "operation": "extract",
   "admin_type": "resource",
-  "profile_name": "IRR.IRRSMO00.PRECHECK",
-  "class_name": "XFACILIT",
+  "resource": "IRR.IRRSMO00.PRECHECK",
+  "class": "XFACILIT",
   "traits": {
     "omvs:uid": 24
   }

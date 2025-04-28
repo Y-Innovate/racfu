@@ -1,7 +1,7 @@
 {
   "operation": "extract",
   "admin_type": "user",
-  "profile_name": "SQUIDWRD",
+  "userid": "SQUIDWRD",
   "traits": {
     "omvs:uid": 24
   }

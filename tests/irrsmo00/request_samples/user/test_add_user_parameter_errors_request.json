@@ -6,5 +6,5 @@
     "omvs:uid": 24,
     "omvs:home_directory": "/u/squidwrd"
   },
-  "class_name": "SQUIDWRD"
+  "class": "SQUIDWRD"
 }

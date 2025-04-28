@@ -1,0 +1,10 @@
+{
+  "operation": "alter",
+  "admin_type": "data-set",
+  "data_set": "ESWIFT.TEST.T1136242.P3020470",
+  "traits": {
+    "base:universal_access": "Read",
+    "base:owner": "eswift",
+    "csdata:custom_field": "custom_value"
+  }
+}

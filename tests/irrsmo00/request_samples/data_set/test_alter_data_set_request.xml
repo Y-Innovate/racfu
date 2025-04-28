@@ -1,0 +1,8 @@
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+  <dataset operation="set" name="ESWIFT.TEST.T1136242.P3020470" requestid="dataset_request">
+    <base>
+      <racf:owner operation="set">eswift</racf:owner>
+      <racf:uacc operation="set">Read</racf:uacc>
+    </base>
+  </dataset>
+</securityrequest>

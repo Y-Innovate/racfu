@@ -229,3 +229,6 @@ cython_debug/
 # Documentation Stuff
 Gemfile.lock
 _site/
+
+# This header is generated at build time and should not be pushed to git.
+racfu_schema.hpp

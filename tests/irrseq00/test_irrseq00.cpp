@@ -16,10 +16,22 @@ void test_generate_extract_user_request() {
                                   TEST_EXTRACT_USER_REQUEST_RAW, false, false);
 }
 
+void test_generate_extract_user_request_lowercase_userid() {
+  test_extract_request_generation(
+      TEST_EXTRACT_USER_REQUEST_LOWERCASE_USERID_JSON,
+      TEST_EXTRACT_USER_REQUEST_RAW, false, false);
+}
+
 void test_parse_extract_user_result() {
   test_parse_extract_result(TEST_EXTRACT_USER_REQUEST_JSON,
                             TEST_EXTRACT_USER_RESULT_JSON,
                             TEST_EXTRACT_USER_RESULT_RAW, false);
+}
+
+void test_parse_extract_user_result_csdata() {
+  test_parse_extract_result(TEST_EXTRACT_USER_REQUEST_JSON,
+                            TEST_EXTRACT_USER_RESULT_CSDATA_JSON,
+                            TEST_EXTRACT_USER_RESULT_CSDATA_RAW, false);
 }
 
 void test_parse_extract_user_result_user_not_found() {
@@ -31,13 +43,19 @@ void test_parse_extract_user_result_user_not_found() {
 void test_parse_extract_user_result_required_parameter_missing() {
   test_validation_errors(
       TEST_EXTRACT_USER_REQUEST_REQUIRED_PARAMETER_MISSING_JSON,
-      TEST_EXTRACT_USER_RESULT_REQUIRED_PARAMETER_MISSING_JSON, false);
+      TEST_PARAMETER_VALIDATION_ERROR_RESULT_JSON, false);
 }
 
 void test_parse_extract_user_result_extraneous_parameter_provided() {
   test_validation_errors(
       TEST_EXTRACT_USER_REQUEST_EXTRANEOUS_PARAMETER_PROVIDED_JSON,
-      TEST_EXTRACT_USER_RESULT_EXTRANEOUS_PARAMETER_PROVIDED_JSON, false);
+      TEST_PARAMETER_VALIDATION_ERROR_RESULT_JSON, false);
+}
+
+void test_parse_extract_user_result_pseudo_boolean() {
+  test_parse_extract_result(TEST_EXTRACT_USER_REQUEST_JSON,
+                            TEST_EXTRACT_USER_RESULT_PSEUDO_BOOLEAN_JSON,
+                            TEST_EXTRACT_USER_RESULT_PSEUDO_BOOLEAN_RAW, false);
 }
 
 /*************************************************************************/
@@ -54,6 +72,12 @@ void test_parse_extract_group_result() {
                             TEST_EXTRACT_GROUP_RESULT_RAW, false);
 }
 
+void test_parse_extract_group_result_csdata() {
+  test_parse_extract_result(TEST_EXTRACT_GROUP_REQUEST_JSON,
+                            TEST_EXTRACT_GROUP_RESULT_CSDATA_JSON,
+                            TEST_EXTRACT_GROUP_RESULT_CSDATA_RAW, false);
+}
+
 void test_parse_extract_group_result_group_not_found() {
   test_parse_extract_result_profile_not_found(
       TEST_EXTRACT_GROUP_REQUEST_JSON,
@@ -63,13 +87,13 @@ void test_parse_extract_group_result_group_not_found() {
 void test_parse_extract_group_result_required_parameter_missing() {
   test_validation_errors(
       TEST_EXTRACT_GROUP_REQUEST_REQUIRED_PARAMETER_MISSING_JSON,
-      TEST_EXTRACT_GROUP_RESULT_REQUIRED_PARAMETER_MISSING_JSON, false);
+      TEST_PARAMETER_VALIDATION_ERROR_RESULT_JSON, false);
 }
 
 void test_parse_extract_group_result_extraneous_parameter_provided() {
   test_validation_errors(
       TEST_EXTRACT_GROUP_REQUEST_EXTRANEOUS_PARAMETER_PROVIDED_JSON,
-      TEST_EXTRACT_GROUP_RESULT_EXTRANEOUS_PARAMETER_PROVIDED_JSON, false);
+      TEST_PARAMETER_VALIDATION_ERROR_RESULT_JSON, false);
 }
 
 /*************************************************************************/
@@ -97,15 +121,13 @@ void test_parse_extract_group_connection_result_group_connection_not_found() {
 void test_parse_extract_group_connection_result_required_parameter_missing() {
   test_validation_errors(
       TEST_EXTRACT_GROUP_CONNECTION_REQUEST_REQUIRED_PARAMETER_MISSING_JSON,
-      TEST_EXTRACT_GROUP_CONNECTION_RESULT_REQUIRED_PARAMETER_MISSING_JSON,
-      false);
+      TEST_PARAMETER_VALIDATION_ERROR_RESULT_JSON, false);
 }
 
 void test_parse_extract_group_connection_result_extraneous_parameter_provided() {
   test_validation_errors(
       TEST_EXTRACT_GROUP_CONNECTION_REQUEST_EXTRANEOUS_PARAMETER_PROVIDED_JSON,
-      TEST_EXTRACT_GROUP_CONNECTION_RESULT_EXTRANEOUS_PARAMETER_PROVIDED_JSON,
-      false);
+      TEST_PARAMETER_VALIDATION_ERROR_RESULT_JSON, false);
 }
 
 /*************************************************************************/
@@ -134,8 +156,7 @@ void test_parse_extract_racf_options_result_racf_options_not_found() {
 void test_parse_extract_racf_options_result_extraneous_parameter_provided() {
   test_validation_errors(
       TEST_EXTRACT_RACF_OPTIONS_REQUEST_EXTRANEOUS_PARAMETER_PROVIDED_JSON,
-      TEST_EXTRACT_RACF_OPTIONS_RESULT_EXTRANEOUS_PARAMETER_PROVIDED_JSON,
-      false);
+      TEST_PARAMETER_VALIDATION_ERROR_RESULT_JSON, false);
 }
 
 /*************************************************************************/
@@ -153,6 +174,12 @@ void test_parse_extract_data_set_result() {
                             TEST_EXTRACT_DATA_SET_RESULT_RAW, false);
 }
 
+void test_parse_extract_data_set_result_csdata() {
+  test_parse_extract_result(TEST_EXTRACT_DATA_SET_REQUEST_JSON,
+                            TEST_EXTRACT_DATA_SET_RESULT_CSDATA_JSON,
+                            TEST_EXTRACT_DATA_SET_RESULT_CSDATA_RAW, false);
+}
+
 void test_parse_extract_data_set_result_data_set_not_found() {
   test_parse_extract_result_profile_not_found(
       TEST_EXTRACT_DATA_SET_REQUEST_JSON,
@@ -162,13 +189,13 @@ void test_parse_extract_data_set_result_data_set_not_found() {
 void test_parse_extract_data_set_result_required_parameter_missing() {
   test_validation_errors(
       TEST_EXTRACT_DATA_SET_REQUEST_REQUIRED_PARAMETER_MISSING_JSON,
-      TEST_EXTRACT_DATA_SET_RESULT_REQUIRED_PARAMETER_MISSING_JSON, false);
+      TEST_PARAMETER_VALIDATION_ERROR_RESULT_JSON, false);
 }
 
 void test_parse_extract_data_set_result_extraneous_parameter_provided() {
   test_validation_errors(
       TEST_EXTRACT_DATA_SET_REQUEST_EXTRANEOUS_PARAMETER_PROVIDED_JSON,
-      TEST_EXTRACT_DATA_SET_RESULT_EXTRANEOUS_PARAMETER_PROVIDED_JSON, false);
+      TEST_PARAMETER_VALIDATION_ERROR_RESULT_JSON, false);
 }
 
 /*************************************************************************/
@@ -180,10 +207,22 @@ void test_generate_extract_resource_request() {
                                   false);
 }
 
+void test_generate_extract_resource_request_lowercase_resource_name_and_class_name() {
+  test_extract_request_generation(
+      TEST_EXTRACT_RESOURCE_REQUEST_LOWERCASE_RESOURCE_NAME_AND_CLASS_NAME_JSON,
+      TEST_EXTRACT_RESOURCE_REQUEST_RAW, false, false);
+}
+
 void test_parse_extract_resource_result() {
   test_parse_extract_result(TEST_EXTRACT_RESOURCE_REQUEST_JSON,
                             TEST_EXTRACT_RESOURCE_RESULT_JSON,
                             TEST_EXTRACT_RESOURCE_RESULT_RAW, false);
+}
+
+void test_parse_extract_resource_result_csdata() {
+  test_parse_extract_result(TEST_EXTRACT_RESOURCE_REQUEST_JSON,
+                            TEST_EXTRACT_RESOURCE_RESULT_CSDATA_JSON,
+                            TEST_EXTRACT_RESOURCE_RESULT_CSDATA_RAW, false);
 }
 
 void test_parse_extract_resource_result_resource_not_found() {
@@ -195,11 +234,11 @@ void test_parse_extract_resource_result_resource_not_found() {
 void test_parse_extract_resource_result_required_parameter_missing() {
   test_validation_errors(
       TEST_EXTRACT_RESOURCE_REQUEST_REQUIRED_PARAMETER_MISSING_JSON,
-      TEST_EXTRACT_RESOURCE_RESULT_REQUIRED_PARAMETER_MISSING_JSON, false);
+      TEST_PARAMETER_VALIDATION_ERROR_RESULT_JSON, false);
 }
 
 void test_parse_extract_resource_result_extraneous_parameter_provided() {
   test_validation_errors(
       TEST_EXTRACT_RESOURCE_REQUEST_EXTRANEOUS_PARAMETER_PROVIDED_JSON,
-      TEST_EXTRACT_RESOURCE_RESULT_EXTRANEOUS_PARAMETER_PROVIDED_JSON, false);
+      TEST_PARAMETER_VALIDATION_ERROR_RESULT_JSON, false);
 }
