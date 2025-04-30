@@ -5,6 +5,7 @@
 #include <nlohmann/json-schema.hpp>
 #include <nlohmann/json.hpp>
 
+#include "extractor.hpp"
 #include "logger.hpp"
 #include "racfu_result.h"
 #include "racfu_schema.hpp"
@@ -18,7 +19,7 @@ static const nlohmann::json_schema::json_validator RACFU_SCHEMA_VALIDATOR{
 class SecurityAdmin {
  private:
   SecurityRequest request_;
-  void doExtract();
+  void doExtract(Extractor &extractor);
   void doAddAlterDelete();
 
  public:

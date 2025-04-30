@@ -13,7 +13,6 @@
 // Use htonl() to convert 32-bit values from little endian to big endian.
 // On z/OS this macro does nothing since "network order" and z/Architecture are
 // both big endian. This is only necessary for unit testing off platform.
-#define _POSIX_C_SOURCE 200112L
 #include <arpa/inet.h>
 
 // These globals need to be defined differently depending

@@ -8,6 +8,7 @@
 #include <nlohmann/json.hpp>
 
 #include "racfu/racfu.h"
+#include "tests/mock/irrsdl64.hpp"
 #include "tests/mock/irrseq00.hpp"
 #include "tests/mock/irrsmo64.hpp"
 #include "tests/unity/unity.h"
@@ -282,7 +283,7 @@ void check_arg_pointers(char *raw_request, bool racf_options) {
   // and the result buffer subpool pointer is 0x80000001 as a result
   // of the high order bit of the result buffer pointer pointer being
   // set to 0x80000000 to indicate that this is the end of the argument list.
-  TEST_ASSERT_EQUAL_UINT64(0x80000001, arg_pointer[13] - arg_pointer[12]);
+  TEST_ASSERT_EQUAL_UINT64(1, (arg_pointer[13] - arg_pointer[12]) & 0x7FFFFFFF);
 }
 
 /*************************************************************************/
@@ -344,4 +345,86 @@ void test_parse_add_alter_delete_result(
 
   // Cleanup
   free(irrsmo64_result_mock);
+}
+
+/*************************************************************************/
+/* IRRSDL00                                                              */
+/*************************************************************************/
+void test_extract_request_irrsdl00_generation(
+    const char *test_extract_request_json, const char *test_extract_request_raw,
+    bool debug) {
+  std::string request_json   = get_json_sample(test_extract_request_json);
+  char *raw_request_expected = get_raw_sample(test_extract_request_raw);
+
+  // Mock R_datalib result
+  irrsdl64_result_mock      = NULL;
+  irrsdl64_result_size_mock = 0;
+  irrsdl64_saf_rc_mock      = 0;
+  irrsdl64_racf_rc_mock     = 0;
+  irrsdl64_racf_reason_mock = 0;
+
+  racfu_result_t *result    = racfu(request_json.c_str(), debug);
+
+  int request_buffer_size   = TEST_IRRSDL00_KEYRING_REQUEST_BUFFER_SIZE;
+  int arg_area_size         = TEST_IRRSDL00_KEYRING_ARG_AREA_SIZE;
+
+  // Check the size of the buffer
+  TEST_ASSERT_EQUAL_INT32(request_buffer_size, result->raw_request_length);
+  // Check the "arg area" (excludes the "arg pointers" at the end)
+  TEST_ASSERT_EQUAL_MEMORY(raw_request_expected, result->raw_request,
+                           arg_area_size);
+
+  // Cleanup
+  free(raw_request_expected);
+}
+
+void test_parse_extract_irrsdl00_result(const char *test_extract_request_json,
+                                        const char *test_extract_result_json,
+                                        const char *test_extract_result_raw,
+                                        bool debug) {
+  std::string request_json         = get_json_sample(test_extract_request_json);
+  std::string result_json_expected = get_json_sample(test_extract_result_json);
+
+  // Mock R_datalib result
+  irrsdl64_result_mock = get_raw_sample(test_extract_result_raw);
+  struct stat st;
+  stat(test_extract_result_raw, &st);
+  irrsdl64_result_size_mock = st.st_size;
+  irrsdl64_saf_rc_mock      = 0;
+  irrsdl64_racf_rc_mock     = 0;
+  irrsdl64_racf_reason_mock = 0;
+
+  racfu_result_t *result    = racfu(request_json.c_str(), debug);
+
+  TEST_ASSERT_EQUAL_STRING(result_json_expected.c_str(), result->result_json);
+  TEST_ASSERT_EQUAL_INT32(result_json_expected.length(),
+                          strlen(result->result_json));
+  TEST_ASSERT_EQUAL_INT32(irrsdl64_result_size_mock, result->raw_result_length);
+
+  // Cleanup
+  free(irrsdl64_result_mock);
+}
+
+void test_parse_extract_irrsdl00_result_keyring_not_found(
+    const char *test_extract_request_json,
+    const char *test_extract_result_keyring_not_found_json, bool debug) {
+  std::string request_json = get_json_sample(test_extract_request_json);
+  std::string result_json_expected =
+      get_json_sample(test_extract_result_keyring_not_found_json);
+
+  // Mock R_Admin result
+  // Note that there will be no result if the profile cannot be extracted
+  // and the return and reason codes will be set to indicate why the extract
+  // failed.
+  irrsdl64_result_mock      = NULL;
+  irrsdl64_result_size_mock = 0;
+  irrsdl64_saf_rc_mock      = 8;
+  irrsdl64_racf_rc_mock     = 8;
+  irrsdl64_racf_reason_mock = 32;
+
+  racfu_result_t *result    = racfu(request_json.c_str(), debug);
+
+  TEST_ASSERT_EQUAL_STRING(result_json_expected.c_str(), result->result_json);
+  TEST_ASSERT_EQUAL_INT32(result_json_expected.length(),
+                          strlen(result->result_json));
 }

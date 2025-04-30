@@ -19,6 +19,8 @@ class SecurityRequest {
   std::string group_;  // Only used by IRRSMO00 for group connection
   std::string volume_;
   std::string generic_;
+  std::string owner_;
+  std::string keyring_;
   char surrogate_userid_[8] = {0};
   nlohmann::json traits_;
   uint8_t function_code_ = 0;
@@ -40,6 +42,8 @@ class SecurityRequest {
   const std::string& getGroup() const;
   const std::string& getVolume() const;
   const std::string& getGeneric() const;
+  const std::string& getOwner() const;
+  const std::string& getKeyring() const;
   const char* getSurrogateUserID() const;
   const nlohmann::json& getTraits() const;
   uint8_t getFunctionCode() const;

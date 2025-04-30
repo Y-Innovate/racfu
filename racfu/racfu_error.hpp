@@ -1,6 +1,7 @@
 #ifndef __RACFU_ERROR_H_
 #define __RACFU_ERROR_H_
 
+#include <iostream>
 #include <exception>
 #include <vector>
 

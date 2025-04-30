@@ -5,13 +5,14 @@
 #include <cstdlib>
 #include <string>
 
+#include "extractor.hpp"
 #include "irrseq00.hpp"
 #include "logger.hpp"
 #include "racfu_result.h"
 #include "security_request.hpp"
 
 namespace RACFu {
-class ProfileExtractor {
+class ProfileExtractor : public Extractor {
  private:
   static void buildGenericExtractRequest(
       generic_extract_underbar_arg_area_t *arg_area, std::string profile_name,
@@ -22,7 +23,7 @@ class ProfileExtractor {
                                   const int &raw_request_length);
 
  public:
-  void extract(SecurityRequest &request);
+  void extract(SecurityRequest &request) override;
 };
 
 struct DefaultDeleter {

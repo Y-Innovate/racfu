@@ -172,7 +172,7 @@ std::string XMLParser::replaceXMLChars(std::string xml_data) {
   return xml_data;
 }
 
-std::string XMLParser::replaceSubstring(std::string data, std::string substring,
+std::string XMLParser::replaceSubstring(std::string data, std::string &substring,
                                         std::string replacement,
                                         std::size_t start) {
   std::size_t match;

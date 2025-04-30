@@ -1,5 +1,6 @@
 #include "logger.hpp"
 
+#include <cstring>
 #include <cctype>
 #include <csignal>
 #include <iomanip>

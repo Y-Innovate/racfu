@@ -1,0 +1,11 @@
+{
+  "errors": [
+    "racfu: unable to extract 'keyring'"
+  ],
+  "return_codes": {
+    "racf_reason_code": 32,
+    "racf_return_code": 8,
+    "racfu_return_code": 4,
+    "saf_return_code": 8
+  }
+}

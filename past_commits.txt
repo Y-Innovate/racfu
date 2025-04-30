@@ -1,0 +1,5 @@
+The following commits were made pursuant to the Developer Certificate of Origin, even though a Signed-off-by: was not included in the commit message.
+
+216ad8e0dd9afff33e65ae08189e2672aee28d7e Removed template leftover
+0001d5db50aa4420a5dbb81aff1133868cebd76c Fix DCO
+297f7f5f720dabadc077fd28d59ea1a00f1c7d1b Fixed type issues

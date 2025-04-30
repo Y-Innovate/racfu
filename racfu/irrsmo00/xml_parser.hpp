@@ -18,7 +18,7 @@ class XMLParser {
   static void updateJSON(nlohmann::json& input_json, nlohmann::json& inner_data,
                          std::string outer_tag);
   static std::string replaceXMLChars(std::string xml_data);
-  static std::string replaceSubstring(std::string data, std::string substring,
+  static std::string replaceSubstring(std::string data, std::string &substring,
                                       std::string replacement,
                                       std::size_t start);
 

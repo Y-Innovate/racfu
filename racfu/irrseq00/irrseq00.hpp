@@ -35,13 +35,6 @@ const uint16_t t_repeat_field_header = 0x1000;  // repeat field header
 const uint32_t f_boolean_field = 0x80000000;  // value of a boolean field
 const uint32_t f_output_only   = 0x40000000;  // output-only field
 
-/*************************************************************************/
-/* Common Aliases                                                        */
-/*************************************************************************/
-const uint8_t RESULT_BUFFER_SUBPOOL = 127;
-const uint32_t ALET                 = 0x00000000;  // primary address space
-const uint32_t ACEE                 = 0x00000000;
-
 #pragma pack(push, 1)  // Don't byte align structure members.
 
 /*************************************************************************/
@@ -90,7 +83,7 @@ typedef struct {
   uint32_t ACEE;
   uint8_t result_buffer_subpool;
   // R_admin returns data here
-  char *__ptr32 p_result_buffer;
+  char * __ptr32 p_result_buffer;
 } generic_extract_args_t;
 
 typedef struct {

@@ -6,7 +6,9 @@
 #include <memory>
 #include <new>
 
+#include "irrsdl00.hpp"
 #include "irrseq00.hpp"
+
 #ifdef __TOS_390__
 #include <unistd.h>
 #else
@@ -57,7 +59,12 @@ const std::string& SecurityRequest::getClassName() const { return class_name_; }
 const std::string& SecurityRequest::getGroup() const { return group_; }
 
 const std::string& SecurityRequest::getVolume() const { return volume_; }
+
 const std::string& SecurityRequest::getGeneric() const { return generic_; }
+
+const std::string& SecurityRequest::getOwner() const { return owner_; }
+
+const std::string& SecurityRequest::getKeyring() const { return keyring_; }
 
 const char* SecurityRequest::getSurrogateUserID() const {
   return surrogate_userid_;
@@ -193,6 +200,14 @@ void SecurityRequest::load(const nlohmann::json& request) {
     } else {
       traits_["base:authid"] = request["userid"].get<std::string>();
     }
+  } else if (admin_type_ == "keyring") {
+    function_code_ = KEYRING_EXTRACT_FUNCTION_CODE;
+    if (request.contains("owner")) {
+      owner_ = request["owner"].get<std::string>();
+    }
+    if (request.contains("keyring")) {
+      keyring_ = request["keyring"].get<std::string>();
+    }
   }
 
   // set to 15 to enable precheck
@@ -222,7 +237,8 @@ void SecurityRequest::load(const nlohmann::json& request) {
     Logger::getInstance().debug("Running under the authority of user: " +
                                 surrogate_userid_string);
     const int userid_length = surrogate_userid_string.length();
-    strncpy(surrogate_userid_, surrogate_userid_string.c_str(), userid_length);
+    std::strncpy(surrogate_userid_, surrogate_userid_string.c_str(),
+                 userid_length);
     __a2e_l(surrogate_userid_, userid_length);
   }
 }

@@ -80,12 +80,16 @@ def main():
                         + [
                             "racfu", 
                             "externals/json", 
-                            "externals/json-schema-validator"
+                            "externals/json-schema-validator",
+                            os.environ["ZOPEN_ROOTFS"] + "/usr/local/include"
                         ]
                     ),
                     extra_link_args = [
                         "-m64",
-                        "-Wl,-b,edit=no"
+                        "-Wl,-b,edit=no",
+                        "-Wl," + os.environ["ZOPEN_ROOTFS"] + "/usr/local/lib/libcrypto.a",
+                        "-Wl," + os.environ["ZOPEN_ROOTFS"] + "/usr/local/lib/libssl.a",
+                        "-Wl," + os.environ["ZOPEN_ROOTFS"] + "/usr/local/lib/libzoslib.a"
                     ],
                     extra_objects = [
                         f"{assembled_object_path}"
